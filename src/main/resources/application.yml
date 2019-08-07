@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: dev
+  jpa:
+    open-in-view: true
+
+#spring:
+#  datasource:
+#    url: jdbc:oracle:thin:@192.168.1.6:1521:orcl
+#    username: NewCTBT
+#    password: newctbt
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
