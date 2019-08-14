@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.service;
 
-import com.ctbt.ctbtweb.domain.Province;
+import com.ctbt.ctbtweb.entity.Province;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

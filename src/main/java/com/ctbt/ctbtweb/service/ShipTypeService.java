@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.service;
 
-import com.ctbt.ctbtweb.domain.ShipType;
+import com.ctbt.ctbtweb.entity.ShipType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

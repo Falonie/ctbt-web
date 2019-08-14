@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.service;
 
-import com.ctbt.ctbtweb.domain.Contact;
+import com.ctbt.ctbtweb.entity.Contact;
 
 import java.util.List;
 

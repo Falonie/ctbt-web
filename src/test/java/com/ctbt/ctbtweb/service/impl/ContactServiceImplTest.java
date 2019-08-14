@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.service.impl;
 
-import com.ctbt.ctbtweb.domain.Contact;
+import com.ctbt.ctbtweb.entity.Contact;
 import com.ctbt.ctbtweb.service.ContactService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.dao;
 
-import com.ctbt.ctbtweb.domain.Province;
+import com.ctbt.ctbtweb.entity.Province;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

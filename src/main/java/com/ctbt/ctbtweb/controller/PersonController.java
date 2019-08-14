@@ -1,7 +1,7 @@
 package com.ctbt.ctbtweb.controller;
 
 import com.ctbt.ctbtweb.common.ServerResponse;
-import com.ctbt.ctbtweb.domain.Person;
+import com.ctbt.ctbtweb.entity.Person;
 import com.ctbt.ctbtweb.forms.PersonForm;
 import com.ctbt.ctbtweb.service.PersonService;
 import org.springframework.beans.BeanUtils;

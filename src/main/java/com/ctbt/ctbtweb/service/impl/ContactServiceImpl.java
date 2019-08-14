@@ -1,7 +1,7 @@
 package com.ctbt.ctbtweb.service.impl;
 
 import com.ctbt.ctbtweb.dao.ContactDao;
-import com.ctbt.ctbtweb.domain.Contact;
+import com.ctbt.ctbtweb.entity.Contact;
 import com.ctbt.ctbtweb.service.ContactService;
 import org.springframework.stereotype.Service;
 

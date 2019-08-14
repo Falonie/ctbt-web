@@ -1,7 +1,7 @@
 package com.ctbt.ctbtweb.service.impl;
 
-import com.ctbt.ctbtweb.domain.Nation;
-import com.ctbt.ctbtweb.domain.Province;
+import com.ctbt.ctbtweb.entity.Nation;
+import com.ctbt.ctbtweb.entity.Province;
 import com.ctbt.ctbtweb.service.NationService;
 import com.ctbt.ctbtweb.service.ProvinceService;
 import org.junit.Test;
@@ -12,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 
 import java.util.List;
 

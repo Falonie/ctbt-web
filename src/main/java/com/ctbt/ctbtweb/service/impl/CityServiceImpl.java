@@ -1,7 +1,7 @@
 package com.ctbt.ctbtweb.service.impl;
 
 import com.ctbt.ctbtweb.dao.CityDao;
-import com.ctbt.ctbtweb.domain.City;
+import com.ctbt.ctbtweb.entity.City;
 import com.ctbt.ctbtweb.service.CityService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

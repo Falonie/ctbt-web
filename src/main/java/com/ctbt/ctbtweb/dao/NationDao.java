@@ -1,9 +1,7 @@
 package com.ctbt.ctbtweb.dao;
 
-import com.ctbt.ctbtweb.domain.Nation;
+import com.ctbt.ctbtweb.entity.Nation;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface NationDao extends JpaRepository<Nation, Integer> {
     Nation getNationByName(String name);

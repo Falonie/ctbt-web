@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.dao;
 
-import com.ctbt.ctbtweb.domain.City;
+import com.ctbt.ctbtweb.entity.City;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

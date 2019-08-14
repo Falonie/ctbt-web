@@ -1,16 +1,14 @@
 package com.ctbt.ctbtweb.service.impl;
 
 import com.ctbt.ctbtweb.dao.ShipsDeviceDao;
-import com.ctbt.ctbtweb.domain.ShipsDevice;
+import com.ctbt.ctbtweb.entity.ShipsDevice;
 import com.ctbt.ctbtweb.service.ShipsDeviceService;
-import com.ctbt.ctbtweb.service.ShipsService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service("shipsDeviceService")
 public class ShipsDeviceServiceImpl implements ShipsDeviceService {

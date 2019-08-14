@@ -1,7 +1,7 @@
 package com.ctbt.ctbtweb.service.impl;
 
 import com.ctbt.ctbtweb.dao.PersonDao;
-import com.ctbt.ctbtweb.domain.Person;
+import com.ctbt.ctbtweb.entity.Person;
 import com.ctbt.ctbtweb.service.PersonService;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.ctbt.ctbtweb.service.impl;
 
 import com.ctbt.ctbtweb.dao.ShipsDao;
-import com.ctbt.ctbtweb.domain.Ships;
+import com.ctbt.ctbtweb.entity.Ships;
 import com.ctbt.ctbtweb.service.ShipsService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

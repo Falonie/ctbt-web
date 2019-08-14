@@ -1,7 +1,7 @@
 package com.ctbt.ctbtweb.controller;
 
 import com.ctbt.ctbtweb.common.ServerResponse;
-import com.ctbt.ctbtweb.domain.Province;
+import com.ctbt.ctbtweb.entity.Province;
 import com.ctbt.ctbtweb.forms.ProvinceForm;
 import com.ctbt.ctbtweb.service.NationService;
 import com.ctbt.ctbtweb.service.ProvinceService;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Objects;
 
 @RestController

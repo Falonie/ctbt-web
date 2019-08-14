@@ -1,7 +1,6 @@
-package com.ctbt.ctbtweb.domain;
+package com.ctbt.ctbtweb.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

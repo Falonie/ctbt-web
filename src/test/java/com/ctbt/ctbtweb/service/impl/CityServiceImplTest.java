@@ -1,7 +1,7 @@
 package com.ctbt.ctbtweb.service.impl;
 
-import com.ctbt.ctbtweb.domain.City;
-import com.ctbt.ctbtweb.domain.Province;
+import com.ctbt.ctbtweb.entity.City;
+import com.ctbt.ctbtweb.entity.Province;
 import com.ctbt.ctbtweb.service.CityService;
 import com.ctbt.ctbtweb.service.ProvinceService;
 import org.junit.Test;

@@ -1,7 +1,7 @@
 package com.ctbt.ctbtweb.service.impl;
 
 import com.ctbt.ctbtweb.dao.NationDao;
-import com.ctbt.ctbtweb.domain.Nation;
+import com.ctbt.ctbtweb.entity.Nation;
 import com.ctbt.ctbtweb.service.NationService;
 import org.springframework.stereotype.Service;
 

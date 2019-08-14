@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.service;
 
-import com.ctbt.ctbtweb.domain.Person;
+import com.ctbt.ctbtweb.entity.Person;
 
 import java.util.List;
 

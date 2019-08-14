@@ -2,8 +2,8 @@ package com.ctbt.ctbtweb.service.impl;
 
 import com.ctbt.ctbtweb.dao.NationDao;
 import com.ctbt.ctbtweb.dao.ProvinceDao;
-import com.ctbt.ctbtweb.domain.Nation;
-import com.ctbt.ctbtweb.domain.Province;
+import com.ctbt.ctbtweb.entity.Nation;
+import com.ctbt.ctbtweb.entity.Province;
 import com.ctbt.ctbtweb.service.ProvinceService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

@@ -3,6 +3,9 @@ spring:
     active: dev
   jpa:
     open-in-view: true
+  devtools:
+    restart:
+      enabled: true
 
 #spring:
 #  datasource:
@@ -10,3 +13,4 @@ spring:
 #    username: NewCTBT
 #    password: newctbt
 #    driver-class-name: oracle.jdbc.driver.OracleDriver
+

@@ -21,30 +21,6 @@ public class ServerResponse<T> {
         this.data = data;
     }
 
-//    public Integer getCode() {
-//        return code;
-//    }
-//
-//    public void setCode(Integer code) {
-//        this.code = code;
-//    }
-//
-//    public String getMsg() {
-//        return msg;
-//    }
-//
-//    public void setMsg(String msg) {
-//        this.msg = msg;
-//    }
-//
-//    public T getData() {
-//        return data;
-//    }
-//
-//    public void setData(T data) {
-//        this.data = data;
-//    }
-
     public static <T> ServerResponse<T> successByMsg(String message) {
         return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), message);
     }

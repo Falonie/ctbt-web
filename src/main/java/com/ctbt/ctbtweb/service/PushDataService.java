@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.service;
 
-import com.ctbt.ctbtweb.domain.PushData;
+import com.ctbt.ctbtweb.entity.PushData;
 
 import java.util.List;
 

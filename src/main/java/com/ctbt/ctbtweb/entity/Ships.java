@@ -1,7 +1,6 @@
-package com.ctbt.ctbtweb.domain;
+package com.ctbt.ctbtweb.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +11,6 @@ import java.util.List;
 /**
  * 船舶表
  *
- * @author RD
  */
 @Entity
 @Table(name = "SHIPS_TABLE")
@@ -158,6 +156,14 @@ public class Ships {
     @OneToMany(mappedBy = "ships",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonIgnore
     private List<ShipsDevice> deviceList;
+
+//    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
+//    @JoinColumn(name = "SHIPS_ID", referencedColumnName = "ID")
+//    private User user;
+
+    @ManyToMany(mappedBy = "shipsList")
+    @JsonIgnore
+    private List<User> userList;
 
     public Ships(int id) {
         super();

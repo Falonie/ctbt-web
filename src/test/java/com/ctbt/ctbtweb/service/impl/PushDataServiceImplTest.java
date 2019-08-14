@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.service.impl;
 
-import com.ctbt.ctbtweb.domain.PushData;
+import com.ctbt.ctbtweb.entity.PushData;
 import com.ctbt.ctbtweb.service.PushDataService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

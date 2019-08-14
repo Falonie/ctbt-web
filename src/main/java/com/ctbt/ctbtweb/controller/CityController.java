@@ -1,12 +1,11 @@
 package com.ctbt.ctbtweb.controller;
 
 import com.ctbt.ctbtweb.common.ServerResponse;
-import com.ctbt.ctbtweb.domain.City;
+import com.ctbt.ctbtweb.entity.City;
 import com.ctbt.ctbtweb.forms.CityForm;
 import com.ctbt.ctbtweb.forms.EditCityForm;
 import com.ctbt.ctbtweb.service.CityService;
 import com.ctbt.ctbtweb.service.ProvinceService;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

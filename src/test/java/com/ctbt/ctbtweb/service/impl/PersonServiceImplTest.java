@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.service.impl;
 
-import com.ctbt.ctbtweb.domain.Person;
+import com.ctbt.ctbtweb.entity.Person;
 import com.ctbt.ctbtweb.service.PersonService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,6 @@
 package com.ctbt.ctbtweb.service;
 
-import com.ctbt.ctbtweb.domain.User;
-import com.ctbt.ctbtweb.domain.Village;
+import com.ctbt.ctbtweb.entity.Village;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

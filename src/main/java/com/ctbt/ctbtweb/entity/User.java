@@ -1,12 +1,13 @@
-package com.ctbt.ctbtweb.domain;
+package com.ctbt.ctbtweb.entity;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "USER_TABLE")
@@ -48,4 +49,13 @@ public class User {
     @Column(name = "USER_LEVEL")
     private int userLevel;
 
+//    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private List<Ships> shipsList;
+
+    @ManyToMany
+    @JoinTable(name = "SHIPSTOUSERS_TABLE", joinColumns = @JoinColumn(name = "USERID"),
+            inverseJoinColumns = @JoinColumn(name = "SHIPID"))
+    @JsonIgnore
+    private List<Ships> shipsList;
 }

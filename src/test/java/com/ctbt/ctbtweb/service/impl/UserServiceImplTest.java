@@ -1,9 +1,8 @@
 package com.ctbt.ctbtweb.service.impl;
 
 import com.ctbt.ctbtweb.common.ServerResponse;
-import com.ctbt.ctbtweb.domain.User;
+import com.ctbt.ctbtweb.entity.User;
 import com.ctbt.ctbtweb.service.UserService;
-import org.apache.catalina.Server;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -97,5 +96,11 @@ public class UserServiceImplTest {
         User user = userService.findByUsername("falonie");
 //        assertNotNull(user);
         assertTrue(bCryptPasswordEncoder.matches("10000", user.getPassword()));
+    }
+
+    @Test
+    public void checkValid() {
+        ServerResponse response = userService.checkValid("falonie");
+        assertEquals(400, response.getCode());
     }
 }

@@ -1,4 +1,4 @@
-package com.ctbt.ctbtweb.domain;
+package com.ctbt.ctbtweb.entity;
 
 import lombok.Data;
 

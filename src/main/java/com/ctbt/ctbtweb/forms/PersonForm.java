@@ -1,10 +1,14 @@
 package com.ctbt.ctbtweb.forms;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 
-@Data
+@Getter
+@Setter
+//@Data
 public class PersonForm {
     @NotEmpty(message = "姓名不能为空")
     private String name;

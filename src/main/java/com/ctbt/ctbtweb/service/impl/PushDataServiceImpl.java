@@ -1,7 +1,7 @@
 package com.ctbt.ctbtweb.service.impl;
 
 import com.ctbt.ctbtweb.dao.PushDataDao;
-import com.ctbt.ctbtweb.domain.PushData;
+import com.ctbt.ctbtweb.entity.PushData;
 import com.ctbt.ctbtweb.service.PushDataService;
 import org.springframework.stereotype.Service;
 

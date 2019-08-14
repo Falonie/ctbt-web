@@ -1,7 +1,8 @@
 package com.ctbt.ctbtweb.controller;
 
 import com.ctbt.ctbtweb.common.ServerResponse;
-import com.ctbt.ctbtweb.domain.ShipsDevice;
+import com.ctbt.ctbtweb.entity.Ships;
+import com.ctbt.ctbtweb.entity.ShipsDevice;
 import com.ctbt.ctbtweb.service.ShipsDeviceService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/shipsDevice")
@@ -23,7 +26,7 @@ public class ShipsDeviceController {
      *
      * @param deviceId
      * @param page
-     * @param size 10
+     * @param size     10
      * @return
      */
 
@@ -38,6 +41,7 @@ public class ShipsDeviceController {
         if (shipsDevicePage.getContent().isEmpty()) {
             return ServerResponse.successByMsg("对应船舶不存在");
         }
-        return ServerResponse.success(shipsDevicePage.getContent());
+        List<Ships> shipsList = shipsDevicePage.getContent().stream().map(ShipsDevice::getShips).collect(Collectors.toList());
+        return ServerResponse.success(shipsList);
     }
 }

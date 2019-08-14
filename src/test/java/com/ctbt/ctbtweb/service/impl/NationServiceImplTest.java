@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.service.impl;
 
-import com.ctbt.ctbtweb.domain.Nation;
+import com.ctbt.ctbtweb.entity.Nation;
 import com.ctbt.ctbtweb.service.NationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.dao;
 
-import com.ctbt.ctbtweb.domain.PushData;
+import com.ctbt.ctbtweb.entity.PushData;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,8 +1,7 @@
 package com.ctbt.ctbtweb.service.impl;
 
 import com.ctbt.ctbtweb.dao.VillageDao;
-import com.ctbt.ctbtweb.domain.User;
-import com.ctbt.ctbtweb.domain.Village;
+import com.ctbt.ctbtweb.entity.Village;
 import com.ctbt.ctbtweb.service.VillageService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

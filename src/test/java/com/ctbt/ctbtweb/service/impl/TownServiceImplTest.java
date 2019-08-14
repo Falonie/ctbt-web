@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.service.impl;
 
-import com.ctbt.ctbtweb.domain.Town;
+import com.ctbt.ctbtweb.entity.Town;
 import com.ctbt.ctbtweb.service.TownService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 
 import java.util.List;
 

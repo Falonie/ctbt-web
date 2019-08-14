@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.service;
 
-import com.ctbt.ctbtweb.domain.Town;
+import com.ctbt.ctbtweb.entity.Town;
 
 import java.util.List;
 

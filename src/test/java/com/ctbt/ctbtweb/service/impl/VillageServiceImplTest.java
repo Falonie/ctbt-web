@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.service.impl;
 
-import com.ctbt.ctbtweb.domain.Village;
+import com.ctbt.ctbtweb.entity.Village;
 import com.ctbt.ctbtweb.service.VillageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

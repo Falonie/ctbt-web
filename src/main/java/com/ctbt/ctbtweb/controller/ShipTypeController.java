@@ -1,7 +1,7 @@
 package com.ctbt.ctbtweb.controller;
 
 import com.ctbt.ctbtweb.common.ServerResponse;
-import com.ctbt.ctbtweb.domain.ShipType;
+import com.ctbt.ctbtweb.entity.ShipType;
 import com.ctbt.ctbtweb.service.ShipTypeService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -1,9 +1,7 @@
 package com.ctbt.ctbtweb.service.impl;
 
-import com.ctbt.ctbtweb.domain.Ships;
-import com.ctbt.ctbtweb.domain.ShipsDevice;
+import com.ctbt.ctbtweb.entity.ShipsDevice;
 import com.ctbt.ctbtweb.service.ShipsDeviceService;
-import com.ctbt.ctbtweb.service.ShipsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

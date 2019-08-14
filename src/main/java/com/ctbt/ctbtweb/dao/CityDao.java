@@ -1,6 +1,6 @@
 package com.ctbt.ctbtweb.dao;
 
-import com.ctbt.ctbtweb.domain.City;
+import com.ctbt.ctbtweb.entity.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
