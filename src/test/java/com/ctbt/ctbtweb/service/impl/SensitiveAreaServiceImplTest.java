@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import static org.junit.Assert.*;
 
@@ -18,6 +19,19 @@ import static org.junit.Assert.*;
 public class SensitiveAreaServiceImplTest {
     @Resource
     private SensitiveAreaService sensitiveAreaService;
+
+    @Test
+    @Transactional
+    public void save() {
+        SensitiveArea sensitiveArea = new SensitiveArea();
+    }
+
+    @Test
+    public void findByAreaIdOrAreaName() {
+        SensitiveArea sensitiveArea = sensitiveAreaService.findByAreaIdOrAreaName(833, "");
+//        SensitiveArea sensitiveArea = sensitiveAreaService.findByAreaIdOrAreaName(40321124, "钓鱼岛敏感海域");
+        assertNotNull(sensitiveArea);
+    }
 
     @Test
     public void findSensitiveAreas() {
@@ -29,7 +43,7 @@ public class SensitiveAreaServiceImplTest {
     @Test
     public void findSensitiveAreasByUserId() {
         PageRequest request = PageRequest.of(0, 10);
-        Page<SensitiveArea> sensitiveAreaPage = sensitiveAreaService.findSensitiveAreasByUserId(632,request);
+        Page<SensitiveArea> sensitiveAreaPage = sensitiveAreaService.findSensitiveAreasByUserId(632, request);
         assertNotEquals(0, sensitiveAreaPage.getTotalElements());
     }
 }

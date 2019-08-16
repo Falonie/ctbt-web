@@ -4,15 +4,27 @@ import com.ctbt.ctbtweb.entity.Ships;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface ShipsDao extends JpaRepository<Ships, Integer> {
     Ships findById(int id);
 
     Ships findByName(String shipName);
 
+    Ships findByIdOrName(int id, String name);
+
     Ships findByMmsi(String mmsi);
 
     Ships findByCardNo(int cardNo);
 
     Page<Ships> findByEquipmentidOrMmsi(String equipmentid, String mmsi, Pageable pageable);
+
+    Page<Ships> findByNationLikeOrProvinceLikeOrCityLike(String nation, String province, String city, Pageable pageable);
+
+    @Query(value = "select * from SHIPS_TABLE where NATION like %:nation% and PROVINCE like %:province% " +
+            "and CITY like %:city% and COUNTY like %:county% and ID in (select SHIPID from SHIPSTOUSERS_TABLE " +
+            "where USERID=:userId)", nativeQuery = true)
+    Page<Ships> findByNationLikeOrProvinceLikeOrCityLikeOrCountyLikeAndUserId(
+            String nation, String province, String city, String county, int userId, Pageable pageable
+    );
 }

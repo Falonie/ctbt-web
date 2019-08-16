@@ -31,6 +31,16 @@ public class ShipsServiceImpl implements ShipsService {
     }
 
     @Override
+    public Ships findByName(String shipName) {
+        return shipsDao.findByName(shipName);
+    }
+
+    @Override
+    public Ships findByIdOrName(int id, String name) {
+        return shipsDao.findByIdOrName(id, name);
+    }
+
+    @Override
     public Page<Ships> findAll(Pageable pageable) {
         Page<Ships> shipsPage = shipsDao.findAll(pageable);
         return new PageImpl<Ships>(shipsPage.getContent(), pageable, shipsPage.getTotalElements());
@@ -39,6 +49,14 @@ public class ShipsServiceImpl implements ShipsService {
     @Override
     public Page<Ships> findByDeviceId(int equipmentId, int mmsi, Pageable pageable) {
         Page<Ships> shipsPage = shipsDao.findByEquipmentidOrMmsi(String.valueOf(equipmentId), String.valueOf(mmsi), pageable);
+        return new PageImpl<Ships>(shipsPage.getContent(), pageable, shipsPage.getTotalElements());
+    }
+
+    @Override
+    public Page<Ships> findByNationLikeOrProvinceLikeOrCityLikeOrCountyLikeAndUserId(
+            String nation, String province, String city, String county, int userId, Pageable pageable) {
+        Page<Ships> shipsPage = shipsDao.findByNationLikeOrProvinceLikeOrCityLikeOrCountyLikeAndUserId(nation, province,
+                city, county, userId, pageable);
         return new PageImpl<Ships>(shipsPage.getContent(), pageable, shipsPage.getTotalElements());
     }
 

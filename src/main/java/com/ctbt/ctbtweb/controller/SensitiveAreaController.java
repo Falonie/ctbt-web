@@ -31,7 +31,7 @@ public class SensitiveAreaController {
                                                        @RequestParam(value = "size", defaultValue = "10") Integer size,
                                                        @RequestParam(value = "id") int id) {
         PageRequest request = PageRequest.of(page, 10);
-        Page<SensitiveArea> sensitiveAreaPage = sensitiveAreaService.findSensitiveAreasByUserId(id,request);
+        Page<SensitiveArea> sensitiveAreaPage = sensitiveAreaService.findSensitiveAreasByUserId(id, request);
         return ServerResponse.success(sensitiveAreaPage.getContent());
     }
 }

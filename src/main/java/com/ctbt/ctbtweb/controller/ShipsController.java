@@ -1,10 +1,12 @@
 package com.ctbt.ctbtweb.controller;
 
+import com.ctbt.ctbtweb.common.Constant;
 import com.ctbt.ctbtweb.common.ServerResponse;
 import com.ctbt.ctbtweb.entity.Ships;
 import com.ctbt.ctbtweb.entity.ShipsToUsers;
 import com.ctbt.ctbtweb.entity.User;
 import com.ctbt.ctbtweb.forms.ShipForm;
+import com.ctbt.ctbtweb.forms.ShipSearchForm;
 import com.ctbt.ctbtweb.service.ShipsService;
 import com.ctbt.ctbtweb.service.ShipsToUsersService;
 import com.ctbt.ctbtweb.service.UserService;
@@ -43,9 +45,10 @@ public class ShipsController {
 
     /**
      * 显示当前用户的船舶
-     * @param page 页码
-     * @param size 每页显示数量
-     * @param id 用户id
+     *
+     * @param page     页码
+     * @param size     每页显示数量
+     * @param id       用户id
      * @param username 用户名
      * @param session
      * @return 船舶列表
@@ -64,9 +67,48 @@ public class ShipsController {
             return ServerResponse.failByMsg("该用户不存在");
         }
         PageRequest request = PageRequest.of(page, 10);
-        Page<ShipsToUsers> shipsToUsersPage = shipsToUsersService.findByUserId(id, request);
+        Page<ShipsToUsers> shipsToUsersPage = shipsToUsersService.findByUserId(user.getId(), request);
         List<Ships> shipsList = shipsToUsersPage.getContent().stream().map(e -> shipsService.findById(e.getShipId())).collect(Collectors.toList());
         return ServerResponse.success(shipsList);
+    }
+
+    /**
+     * 根据给定条件搜索船舶
+     *
+     * @param nation
+     * @param province
+     * @param city
+     * @param county
+     * @param page
+     * @param id
+     * @param username
+     * @param session
+     * @return 返回船舶列表
+     */
+    @GetMapping("/searchShips")
+    public ServerResponse findShipsNationLikeOrProvinceLikeOrCityLikeOrCountyLikeAndUserId(
+            @RequestParam(value = "nation", defaultValue = "") String nation,
+            @RequestParam(value = "province", defaultValue = "") String province,
+            @RequestParam(value = "city", defaultValue = "") String city,
+            @RequestParam(value = "county", defaultValue = "") String county,
+//            @Valid ShipSearchForm shipSearchForm,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "id", required = false, defaultValue = "0") int id,
+            @RequestParam(value = "username", required = false) String username, HttpSession session) {
+//        User user = (User) session.getAttribute(Constant.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.failByMsg("请先登录");
+//        }
+        User user = userService.findByIdOrUsername(id, username);
+        if (user == null) {
+            return ServerResponse.failByMsg("该用户不存在");
+        }
+        PageRequest request = PageRequest.of(page, 10);
+        Page<Ships> shipsPage = shipsService.findByNationLikeOrProvinceLikeOrCityLikeOrCountyLikeAndUserId(
+                nation, province, city, county,
+//                shipSearchForm.getNation(), shipSearchForm.getProvince(), shipSearchForm.getCity(), shipSearchForm.getCounty(),
+                user.getId(), request);
+        return ServerResponse.success(shipsPage.getContent());
     }
 
     @GetMapping

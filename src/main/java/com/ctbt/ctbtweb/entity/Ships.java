@@ -3,6 +3,7 @@ package com.ctbt.ctbtweb.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,13 +11,13 @@ import java.util.List;
 
 /**
  * 船舶表
- *
  */
 @Entity
 @Table(name = "SHIPS_TABLE")
 //@Data
 @Getter
 @Setter
+//@ToString
 public class Ships {
 
     @Id
@@ -153,7 +154,7 @@ public class Ships {
     @Column(name = "CARDNO")
     private Integer cardNo;
 
-    @OneToMany(mappedBy = "ships",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ships", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<ShipsDevice> deviceList;
 
@@ -164,6 +165,10 @@ public class Ships {
     @ManyToMany(mappedBy = "shipsList")
     @JsonIgnore
     private List<User> userList;
+
+    @ManyToMany(mappedBy = "shipsList2")
+    @JsonIgnore
+    private List<SensitiveArea> sensitiveAreaList;
 
     public Ships(int id) {
         super();

@@ -15,6 +15,16 @@ public class SensitiveAreaServiceImpl implements SensitiveAreaService {
     private SensitiveAreaDao sensitiveAreaDao;
 
     @Override
+    public SensitiveArea save(SensitiveArea sensitiveArea) {
+        return sensitiveAreaDao.save(sensitiveArea);
+    }
+
+    @Override
+    public SensitiveArea findByAreaIdOrAreaName(int areaId, String areaName) {
+        return sensitiveAreaDao.findByAreaIdOrAreaName(areaId, areaName);
+    }
+
+    @Override
     public Page<SensitiveArea> findSensitiveAreas(Pageable pageable) {
         return sensitiveAreaDao.findAll(pageable);
     }
