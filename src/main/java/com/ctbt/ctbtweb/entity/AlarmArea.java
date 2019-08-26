@@ -10,14 +10,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 敏感区域
+ * 警戒区域
  */
 @Entity
 @Table(name = "CONTROLAREA_TABLE")
 @Getter
 @Setter
 //@ToString
-public class SensitiveArea {
+public class AlarmArea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,10 +42,8 @@ public class SensitiveArea {
     @Column(name = "GEOMETRY")
     private String geometry;
 
-    @ManyToMany
-    @JoinTable(name = "AREAALARM_TABLE", joinColumns = @JoinColumn(name = "AREAID"),
-            inverseJoinColumns = @JoinColumn(name = "SHIPID"))
-    @JsonIgnore
-    private List<Ships> shipsList2;
+//    @ManyToMany(mappedBy = "sensitiveAreaList")
+//    @JsonIgnore
+//    private List<Ships> ships;
 
 }

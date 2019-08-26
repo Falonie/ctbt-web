@@ -32,9 +32,9 @@ public class ShipsDeviceController {
 
     @GetMapping("/shipsDeviceList")
     public ServerResponse shipsDeviceList(@RequestParam(value = "deviceId") String deviceId,
-                                          @RequestParam(value = "page", defaultValue = "0") Integer page,
+                                          @RequestParam(value = "page", defaultValue = "1") Integer page,
                                           @RequestParam(value = "size", defaultValue = "10") Integer size) {
-        PageRequest request = PageRequest.of(page, 10);
+        PageRequest request = PageRequest.of(page - 1, 10);
 //        Page<ShipsDevice> shipsDevicePage = shipsDeviceService.findByShipsDeviceId(String.valueOf(deviceId), request);
         Page<ShipsDevice> shipsDevicePage = shipsDeviceService.findByShipsDeviceId(deviceId, request);
         System.out.println("***************" + shipsDevicePage.getTotalElements() + "*********" + shipsDevicePage.getTotalPages() + "********" + shipsDevicePage.getContent());

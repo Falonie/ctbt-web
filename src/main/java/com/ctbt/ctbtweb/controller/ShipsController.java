@@ -92,7 +92,7 @@ public class ShipsController {
             @RequestParam(value = "city", defaultValue = "") String city,
             @RequestParam(value = "county", defaultValue = "") String county,
 //            @Valid ShipSearchForm shipSearchForm,
-            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "id", required = false, defaultValue = "0") int id,
             @RequestParam(value = "username", required = false) String username, HttpSession session) {
 //        User user = (User) session.getAttribute(Constant.CURRENT_USER);
@@ -103,7 +103,7 @@ public class ShipsController {
         if (user == null) {
             return ServerResponse.failByMsg("该用户不存在");
         }
-        PageRequest request = PageRequest.of(page, 10);
+        PageRequest request = PageRequest.of(page - 1, 10);
         Page<Ships> shipsPage = shipsService.findByNationLikeOrProvinceLikeOrCityLikeOrCountyLikeAndUserId(
                 nation, province, city, county,
 //                shipSearchForm.getNation(), shipSearchForm.getProvince(), shipSearchForm.getCity(), shipSearchForm.getCounty(),
@@ -111,8 +111,12 @@ public class ShipsController {
         return ServerResponse.success(shipsPage.getContent());
     }
 
-    @GetMapping
-    public ServerResponse ship(@RequestParam("id") int id) {
+    /**
+     * @param id 船舶id
+     * @return 船舶
+     */
+    @GetMapping("/id/{id}")
+    public ServerResponse ship(@PathVariable("id") int id) {
         Ships ships = shipsService.findById(id);
         if (ships == null) {
             return ServerResponse.failByMsg("该船舶不存在");

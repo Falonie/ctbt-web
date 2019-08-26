@@ -38,11 +38,11 @@ public class ShipTypeController {
     }
 
     @GetMapping("/shipTypeList")
-    public ServerResponse shipTypeList(@RequestParam(value = "page", defaultValue = "0") Integer page,
+    public ServerResponse shipTypeList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                        @RequestParam(value = "size", defaultValue = "10") Integer size) {
-        PageRequest request = PageRequest.of(page, 10);
+        PageRequest request = PageRequest.of(page - 1, 10);
         Page<ShipType> shipTypePage = shipTypeService.findAll(request);
-        if (shipTypePage.getContent().isEmpty()){
+        if (shipTypePage.getContent().isEmpty()) {
             return ServerResponse.failByMsg("");
         }
         return ServerResponse.success(shipTypePage.getContent());

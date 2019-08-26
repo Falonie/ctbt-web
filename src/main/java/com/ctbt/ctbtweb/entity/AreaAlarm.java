@@ -12,7 +12,7 @@ import java.util.Date;
 @Table(name = "AREAALARM_TABLE")
 @Getter
 @Setter
-@ToString
+//@ToString
 @NoArgsConstructor
 public class AreaAlarm {
 

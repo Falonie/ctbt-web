@@ -166,9 +166,11 @@ public class Ships {
     @JsonIgnore
     private List<User> userList;
 
-    @ManyToMany(mappedBy = "shipsList2")
-    @JsonIgnore
-    private List<SensitiveArea> sensitiveAreaList;
+//    @ManyToMany
+//    @JoinTable(name = "SHIPSTOALARMAREA_TABLE", joinColumns = @JoinColumn(name = "SHIPID"),
+//            inverseJoinColumns = @JoinColumn(name = "AREAID"))
+//    @JsonIgnore
+//    private List<AlarmArea> sensitiveAreaList;
 
     public Ships(int id) {
         super();

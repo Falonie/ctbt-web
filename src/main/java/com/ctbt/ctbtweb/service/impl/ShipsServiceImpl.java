@@ -64,4 +64,9 @@ public class ShipsServiceImpl implements ShipsService {
     public void delete(Ships ships) {
         shipsDao.delete(ships);
     }
+
+    @Override
+    public void addShipToSensitiveArea(Ships ships) {
+
+    }
 }

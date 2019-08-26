@@ -61,9 +61,9 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    public ServerResponse userList(@RequestParam(value = "page", defaultValue = "0") Integer page,
+    public ServerResponse userList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                    @RequestParam(value = "size", defaultValue = "10") Integer size) {
-        PageRequest request = PageRequest.of(page, 10);
+        PageRequest request = PageRequest.of(page - 1, 10);
         Page<User> userPage = userService.findAll(request);
         return ServerResponse.success(userPage.getContent());
     }

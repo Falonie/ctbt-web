@@ -1,8 +1,8 @@
 package com.ctbt.ctbtweb.service.impl;
 
-import com.ctbt.ctbtweb.entity.SensitiveArea;
+import com.ctbt.ctbtweb.entity.AlarmArea;
 import com.ctbt.ctbtweb.entity.Ships;
-import com.ctbt.ctbtweb.service.SensitiveAreaService;
+import com.ctbt.ctbtweb.service.AlarmAreaService;
 import com.ctbt.ctbtweb.service.ShipsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,12 +26,13 @@ public class ShipsServiceImplTest {
     @Resource
     private ShipsService shipsService;
     @Resource
-    private SensitiveAreaService sensitiveAreaService;
+    private AlarmAreaService alarmAreaService;
 
     @Test
 //    @Transactional
     public void save() {
         Ships ships = new Ships();
+//        ships.setId(1111111111);
         ships.setName("FalonieShip");
         ships.setNumber("FalonieShip");
 //        ships.setName("testShip");
@@ -48,12 +49,13 @@ public class ShipsServiceImplTest {
         ships.setDestination("ZHOUSHAN");
         ships.setReceiveDate(new Date());
         ships.setPositionDate(new Date());
-        List<SensitiveArea> sensitiveAreaList = new ArrayList<>();
-        sensitiveAreaList.add(sensitiveAreaService.findByAreaIdOrAreaName(833, ""));
-//        sensitiveAreaList.add(sensitiveAreaService.findByAreaIdOrAreaName(867, ""));
-        ships.setSensitiveAreaList(sensitiveAreaList);
-        Ships result = shipsService.save(ships);
-        assertNotNull(result);
+        AlarmArea alarmArea = alarmAreaService.findByAreaIdOrAreaName(833, "");
+        List<AlarmArea> alarmAreaList = new ArrayList<>();
+        alarmAreaList.add(alarmArea);
+//        alarmAreaList.add(alarmAreaService.findByAreaIdOrAreaName(867, ""));
+//        ships.setSensitiveAreaList(alarmAreaList);
+//        Ships result = shipsService.save(ships);
+//        assertNotNull(result);
     }
 
     @Test
@@ -77,7 +79,8 @@ public class ShipsServiceImplTest {
     @Test
     public void findByIdOrName() {
 //        Ships ships = shipsService.findByIdOrName(0, "ZHEPUYU19236");
-        Ships ships = shipsService.findByIdOrName(467918, "XXXXXXXXXXXXXXXXXXXXX");
+//        Ships ships = shipsService.findByIdOrName(467918, "XXXXXXXXXXXXXXXXXXXXX");
+        Ships ships = shipsService.findByIdOrName(0, "FalonieShip");
         assertNotNull(ships);
     }
 
@@ -93,8 +96,12 @@ public class ShipsServiceImplTest {
     }
 
     @Test
-    @Transactional
+//    @Transactional
     public void delete() {
+        Ships ships = shipsService.findByIdOrName(0, "FalonieShip");
+        shipsService.delete(ships);
+        Ships result = shipsService.findByIdOrName(0, "FalonieShip");
+        assertNull(result);
     }
 
     @Test

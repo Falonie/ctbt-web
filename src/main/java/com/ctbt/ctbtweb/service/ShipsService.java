@@ -24,4 +24,6 @@ public interface ShipsService {
     );
 
     void delete(Ships ships);
+
+    void addShipToSensitiveArea(Ships ships);
 }
