@@ -14,7 +14,7 @@ import java.util.List;
 //@Data
 @Getter
 @Setter
-@ToString
+//@ToString
 public class User {
 
     public User() {
@@ -58,4 +58,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "SHIPID"))
     @JsonIgnore
     private List<Ships> shipsList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Log> logList;
 }

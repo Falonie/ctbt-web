@@ -27,4 +27,8 @@ public interface ShipsDao extends JpaRepository<Ships, Integer> {
     Page<Ships> findByNationLikeOrProvinceLikeOrCityLikeOrCountyLikeAndUserId(
             String nation, String province, String city, String county, int userId, Pageable pageable
     );
+
+    @Query(value = "select * from SHIPS_TABLE where ID in " +
+            "(select SHIPID from SHIPSTOUSERS_TABLE where USERID=:userId) and ISUNPOWER=:isUnpower", nativeQuery = true)
+    Page<Ships> findByIsUnpowerAndUserId(int userId, String isUnpower, Pageable pageable);
 }

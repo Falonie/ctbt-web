@@ -37,7 +37,7 @@ public class ShipsDeviceController {
         PageRequest request = PageRequest.of(page - 1, 10);
 //        Page<ShipsDevice> shipsDevicePage = shipsDeviceService.findByShipsDeviceId(String.valueOf(deviceId), request);
         Page<ShipsDevice> shipsDevicePage = shipsDeviceService.findByShipsDeviceId(deviceId, request);
-        System.out.println("***************" + shipsDevicePage.getTotalElements() + "*********" + shipsDevicePage.getTotalPages() + "********" + shipsDevicePage.getContent());
+//        System.out.println("***************" + shipsDevicePage.getTotalElements() + "*********" + shipsDevicePage.getTotalPages() + "********" + shipsDevicePage.getContent());
         if (shipsDevicePage.getContent().isEmpty()) {
             return ServerResponse.successByMsg("对应船舶不存在");
         }

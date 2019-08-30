@@ -124,7 +124,7 @@ public class UserController {
             userService.delete(user);
             return ServerResponse.successByMsg("删除成功");
         } catch (Exception e) {
-            return ServerResponse.successByMsg("删除失败");
+            return ServerResponse.failByMsg("删除失败");
         }
     }
 }

@@ -23,6 +23,10 @@ public interface ShipsService {
             String nation, String province, String city, String county, int userId, Pageable pageable
     );
 
+//    Page<Ships> findByUserIdAndIsUnPowerShips()
+
+    Page<Ships> findByIsUnpowerAndUserId(int userId, Pageable pageable);
+
     void delete(Ships ships);
 
     void addShipToSensitiveArea(Ships ships);

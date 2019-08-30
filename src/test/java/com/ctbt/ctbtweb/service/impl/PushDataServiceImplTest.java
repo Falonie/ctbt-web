@@ -5,6 +5,8 @@ import com.ctbt.ctbtweb.service.PushDataService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -61,5 +63,16 @@ public class PushDataServiceImplTest {
         PushData pushData = pushDataService.findById(401);
         pushDataService.delete(pushData);
         assertNull(pushDataService.findById(401));
+    }
+
+    @Test
+    public void findAllByPage() {
+        PageRequest request = PageRequest.of(0, 10);
+        Page<PushData> pushDataPage = pushDataService.findAll(request);
+        assertNotEquals(0, pushDataPage.getTotalElements());
+    }
+
+    @Test
+    public void findByName() {
     }
 }

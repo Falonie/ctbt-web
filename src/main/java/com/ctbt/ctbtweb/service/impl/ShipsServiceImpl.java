@@ -61,6 +61,12 @@ public class ShipsServiceImpl implements ShipsService {
     }
 
     @Override
+    public Page<Ships> findByIsUnpowerAndUserId(int userId, Pageable pageable) {
+        Page<Ships> shipsPage = shipsDao.findByIsUnpowerAndUserId( userId,"1", pageable);
+        return new PageImpl<Ships>(shipsPage.getContent(), pageable, shipsPage.getTotalElements());
+    }
+
+    @Override
     public void delete(Ships ships) {
         shipsDao.delete(ships);
     }

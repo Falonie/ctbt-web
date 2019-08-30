@@ -36,9 +36,9 @@ public class ShipsController {
     private ShipsToUsersService shipsToUsersService;
 
     @GetMapping("/allShipsList")
-    public ServerResponse allShipsList(@RequestParam(value = "page", defaultValue = "0") Integer page,
+    public ServerResponse allShipsList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                        @RequestParam(value = "size", defaultValue = "10") Integer size) {
-        PageRequest request = PageRequest.of(page, 10);
+        PageRequest request = PageRequest.of(page - 1, 10);
         Page<Ships> shipsPage = shipsService.findAll(request);
         return ServerResponse.success(shipsPage.getContent());
     }
@@ -54,7 +54,7 @@ public class ShipsController {
      * @return 船舶列表
      */
     @GetMapping("/list")
-    public ServerResponse shipsList(@RequestParam(value = "page", defaultValue = "0") Integer page,
+    public ServerResponse shipsList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                     @RequestParam(value = "size", defaultValue = "10") Integer size,
                                     @RequestParam(value = "id", required = false, defaultValue = "0") int id,
                                     @RequestParam(value = "username", required = false) String username, HttpSession session) {
@@ -66,7 +66,7 @@ public class ShipsController {
         if (user == null) {
             return ServerResponse.failByMsg("该用户不存在");
         }
-        PageRequest request = PageRequest.of(page, 10);
+        PageRequest request = PageRequest.of(page - 1, 10);
         Page<ShipsToUsers> shipsToUsersPage = shipsToUsersService.findByUserId(user.getId(), request);
         List<Ships> shipsList = shipsToUsersPage.getContent().stream().map(e -> shipsService.findById(e.getShipId())).collect(Collectors.toList());
         return ServerResponse.success(shipsList);
@@ -112,10 +112,38 @@ public class ShipsController {
     }
 
     /**
+     * 显示当前用户的无动力船舶
+     *
+     * @param page
+     * @param size
+     * @param id
+     * @param username
+     * @param session
+     * @return
+     */
+    @GetMapping("/unPowerShipsList")
+    public ServerResponse unPowerShipsList(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                           @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                           @RequestParam(value = "id", required = false, defaultValue = "0") int id,
+                                           @RequestParam(value = "username", required = false) String username, HttpSession session) {
+//        User user = (User) session.getAttribute(Constant.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.failByMsg("请先登录");
+//        }
+        User user = userService.findByIdOrUsername(id, username);
+        if (user == null) {
+            return ServerResponse.failByMsg("该用户不存在");
+        }
+        PageRequest request = PageRequest.of(page - 1, 10);
+        Page<Ships> shipsPage = shipsService.findByIsUnpowerAndUserId(user.getId(), request);
+        return ServerResponse.success(shipsPage.getContent());
+    }
+
+    /**
      * @param id 船舶id
      * @return 船舶
      */
-    @GetMapping("/id/{id}")
+    @GetMapping("/id/{id:[0-9]+}")
     public ServerResponse ship(@PathVariable("id") int id) {
         Ships ships = shipsService.findById(id);
         if (ships == null) {
@@ -135,8 +163,8 @@ public class ShipsController {
         return ServerResponse.success(result);
     }
 
-    @PutMapping("/edit")
-    public ServerResponse editShip(@RequestParam("id") int id, @Valid ShipForm shipForm, BindingResult bindingResult) {
+    @PutMapping("/editShip/id/{id}")
+    public ServerResponse editShip(@PathVariable("id") int id, @Valid ShipForm shipForm, BindingResult bindingResult) {
         Ships ships = shipsService.findById(id);
         if (ships == null) {
             return ServerResponse.failByMsg("该船舶不存在");
