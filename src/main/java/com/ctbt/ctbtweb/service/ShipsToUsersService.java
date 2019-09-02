@@ -6,4 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface ShipsToUsersService {
     Page<ShipsToUsers> findByUserId(int userId, Pageable pageable);
+
+    ShipsToUsers save(ShipsToUsers shipsToUsers);
 }

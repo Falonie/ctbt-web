@@ -66,7 +66,7 @@ public class ShipsServiceImplTest {
 
     @Test
     public void findById() {
-        Ships ships = shipsService.findById(483015);
+        Ships ships = shipsService.findById(1754716);
         assertNotNull(ships);
     }
 
@@ -80,7 +80,8 @@ public class ShipsServiceImplTest {
     public void findByIdOrName() {
 //        Ships ships = shipsService.findByIdOrName(0, "ZHEPUYU19236");
 //        Ships ships = shipsService.findByIdOrName(467918, "XXXXXXXXXXXXXXXXXXXXX");
-        Ships ships = shipsService.findByIdOrName(0, "FalonieShip");
+//        Ships ships = shipsService.findByIdOrName(0, "FalonieShip");
+        Ships ships = shipsService.findByIdOrName(0, "浙三渔04502");
         assertNotNull(ships);
     }
 
@@ -98,10 +99,14 @@ public class ShipsServiceImplTest {
     @Test
 //    @Transactional
     public void delete() {
-        Ships ships = shipsService.findByIdOrName(0, "FalonieShip");
+        Ships ships = shipsService.findById(1754716);
         shipsService.delete(ships);
-        Ships result = shipsService.findByIdOrName(0, "FalonieShip");
-        assertNull(result);
+//        Ships result = shipsService.findByIdOrName(0, "浙三渔04502");
+//        assertNull(result);
+//        Ships ships = shipsService.findByIdOrName(0, "FalonieShip");
+//        shipsService.delete(ships);
+//        Ships result = shipsService.findByIdOrName(0, "FalonieShip");
+//        assertNull(result);
     }
 
     @Test

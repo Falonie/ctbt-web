@@ -20,4 +20,9 @@ public class ShipsToUsersServiceImpl implements ShipsToUsersService {
         Page<ShipsToUsers> shipsToUsersPage = shipsToUsersDao.findByUserId(userId, pageable);
         return new PageImpl<ShipsToUsers>(shipsToUsersPage.getContent(), pageable, shipsToUsersPage.getTotalElements());
     }
+
+    @Override
+    public ShipsToUsers save(ShipsToUsers shipsToUsers) {
+        return shipsToUsersDao.save(shipsToUsers);
+    }
 }
