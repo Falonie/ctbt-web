@@ -31,12 +31,12 @@ public class ShipsToUsersServiceImplTest {
 
     @Test
     public void save() {
-        ShipsToUsers shipsToUsers=new ShipsToUsers();
+        ShipsToUsers shipsToUsers = new ShipsToUsers();
         shipsToUsers.setId(3014603);
         shipsToUsers.setShipId(1753058);
         shipsToUsers.setUserId(122);
         shipsToUsers.setUpdateEquipmentIdDate(new Date());
-        ShipsToUsers result=shipsToUsersService.save(shipsToUsers);
+        ShipsToUsers result = shipsToUsersService.save(shipsToUsers);
         assertNotNull(result);
     }
 }

@@ -3,6 +3,7 @@ package com.ctbt.ctbtweb.service.impl;
 import com.ctbt.ctbtweb.dao.LogDao;
 import com.ctbt.ctbtweb.entity.Log;
 import com.ctbt.ctbtweb.service.LogService;
+import org.aspectj.lang.JoinPoint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +19,23 @@ public class LogServiceImpl implements LogService {
     private LogDao logDao;
 
     @Override
-    public Log save(Log log) {
+    public Log save(Log log,JoinPoint joinPoint) {
+        log.setDate(new Date());
+        log.setClassName(joinPoint.getTarget().getClass().getName());
+        return logDao.save(log);
+    }
+
+    @Override
+    public Log addClientLog(Log log) {
+        log.setDate(new Date());
+        log.setType("ClientLog");
+        return logDao.save(log);
+    }
+
+    @Override
+    public Log addUserLog(Log log) {
+        log.setDate(new Date());
+        log.setType("UserLog");
         return logDao.save(log);
     }
 

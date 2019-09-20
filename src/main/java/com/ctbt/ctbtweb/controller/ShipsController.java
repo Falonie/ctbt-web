@@ -3,13 +3,12 @@ package com.ctbt.ctbtweb.controller;
 import com.ctbt.ctbtweb.common.Constant;
 import com.ctbt.ctbtweb.common.ServerResponse;
 import com.ctbt.ctbtweb.entity.Ships;
+import com.ctbt.ctbtweb.entity.ShipsDevice;
 import com.ctbt.ctbtweb.entity.ShipsToUsers;
 import com.ctbt.ctbtweb.entity.User;
 import com.ctbt.ctbtweb.forms.ShipForm;
 import com.ctbt.ctbtweb.forms.ShipSearchForm;
-import com.ctbt.ctbtweb.service.ShipsService;
-import com.ctbt.ctbtweb.service.ShipsToUsersService;
-import com.ctbt.ctbtweb.service.UserService;
+import com.ctbt.ctbtweb.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -34,6 +33,10 @@ public class ShipsController {
     private UserService userService;
     @Resource
     private ShipsToUsersService shipsToUsersService;
+    @Resource
+    private ShipsDeviceService shipsDeviceService;
+    @Resource
+    private LogService logService;
 
     @GetMapping("/allShipsList")
     public ServerResponse allShipsList(@RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -149,6 +152,7 @@ public class ShipsController {
         if (ships == null) {
             return ServerResponse.failByMsg("该船舶不存在");
         }
+//        logService.save()
         return ServerResponse.success(ships);
     }
 
@@ -158,9 +162,15 @@ public class ShipsController {
         if (bindingResult.hasErrors()) {
             return ServerResponse.failByMsg(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
+        if (shipsService.findByEquipmentId(shipForm.getEquipmentId()) != null) {
+            return ServerResponse.failByMsg("该卡号已存在");
+        }
+        if (shipsService.findByName(shipForm.getName()) != null) {
+            return ServerResponse.failByMsg("该船舶已存在");
+        }
         BeanUtils.copyProperties(shipForm, ships);
         Ships result = shipsService.save(ships);
-        return ServerResponse.success(result);
+        return ServerResponse.success("添加成功", result);
     }
 
     @PutMapping("/editShip/id/{id}")
@@ -175,5 +185,19 @@ public class ShipsController {
         BeanUtils.copyProperties(shipForm, ships);
         Ships result = shipsService.save(ships);
         return ServerResponse.success(result);
+    }
+
+    @DeleteMapping("/deleteShip/id/{id}")
+    public ServerResponse deleteShip(@PathVariable("id") int id) {
+        Ships ship = shipsService.findById(id);
+        if (ship == null) {
+            return ServerResponse.failByMsg("该船舶不存在");
+        }
+        try {
+            shipsService.delete(ship);
+            return ServerResponse.successByMsg("删除成功");
+        } catch (Exception e) {
+            return ServerResponse.failByMsg("删除失败");
+        }
     }
 }

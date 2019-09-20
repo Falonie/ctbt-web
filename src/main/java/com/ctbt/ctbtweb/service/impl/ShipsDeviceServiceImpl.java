@@ -16,6 +16,16 @@ public class ShipsDeviceServiceImpl implements ShipsDeviceService {
     private ShipsDeviceDao shipsDeviceDao;
 
     @Override
+    public ShipsDevice save(ShipsDevice shipsDevice) {
+        return shipsDeviceDao.save(shipsDevice);
+    }
+
+    @Override
+    public void delete(ShipsDevice shipsDevice) {
+        shipsDeviceDao.delete(shipsDevice);
+    }
+
+    @Override
     public Page<ShipsDevice> findByShipsDeviceId(String deviceId, Pageable pageable) {
         Page<ShipsDevice> shipsDevicePage = shipsDeviceDao.findAllByDeviceId(deviceId, pageable);
         return new PageImpl<ShipsDevice>(shipsDevicePage.getContent(), pageable, shipsDevicePage.getTotalElements());

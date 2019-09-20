@@ -5,8 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ShipsDeviceService {
+    ShipsDevice save(ShipsDevice shipsDevice);
+
     Page<ShipsDevice> findByShipsDeviceId(String deviceId, Pageable pageable);
 
-//    List<ShipsDevice> findByShipsDeviceId(String id);
     Page<ShipsDevice> findByShipsId(int shipId, Pageable pageable);
+
+    void delete(ShipsDevice shipsDevice);
 }

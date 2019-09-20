@@ -116,7 +116,7 @@ public class AlarmController {
         alarm.setShipId(ships.getId());
         alarm.setShipName(ships.getName());
         alarm.setProductId(ships.getProductId());
-        alarm.setEquipmentId(ships.getEquipmentid());
+        alarm.setEquipmentId(ships.getEquipmentId());
         alarm.setIsAllowAlarm(isAllowAlarm);
         alarm.setContent(content);
         alarm.setAddReason(addReason);

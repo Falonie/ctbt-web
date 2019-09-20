@@ -2,10 +2,14 @@ package com.ctbt.ctbtweb.controller;
 
 import com.ctbt.ctbtweb.common.Constant;
 import com.ctbt.ctbtweb.common.ServerResponse;
+import com.ctbt.ctbtweb.entity.Ships;
+import com.ctbt.ctbtweb.entity.ShipsToUsers;
 import com.ctbt.ctbtweb.entity.User;
 import com.ctbt.ctbtweb.forms.ResetPasswordForm;
 import com.ctbt.ctbtweb.forms.EditUserForm;
 import com.ctbt.ctbtweb.forms.UserForm;
+import com.ctbt.ctbtweb.service.ShipsService;
+import com.ctbt.ctbtweb.service.ShipsToUsersService;
 import com.ctbt.ctbtweb.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -18,7 +22,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -26,6 +32,10 @@ import java.util.Objects;
 public class UserController {
     @Resource
     private UserService userService;
+    @Resource
+    private ShipsToUsersService shipsToUsersService;
+    @Resource
+    private ShipsService shipsService;
     @Resource
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -127,4 +137,37 @@ public class UserController {
             return ServerResponse.failByMsg("删除失败");
         }
     }
+
+    /**
+     * 显示当前用户的船舶
+     *
+     * @param page     页码
+     * @param size     每页显示数量
+     * @param id       用户id
+     * @param username 用户名
+     * @param session
+     * @return 船舶列表
+     */
+    @GetMapping("/shipList")
+    public ServerResponse shipsList(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                    @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                    @RequestParam(value = "id", required = false, defaultValue = "0") int id,
+                                    @RequestParam(value = "username", required = false) String username, HttpSession session) {
+//        User user = (User) session.getAttribute(Constant.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.failByMsg("请先登录");
+//        }
+        User user = userService.findByIdOrUsername(id, username);
+        if (user == null) {
+            return ServerResponse.failByMsg("该用户不存在");
+        }
+        PageRequest request = PageRequest.of(page - 1, 10);
+        Page<ShipsToUsers> shipsToUsersPage = shipsToUsersService.findByUserId(user.getId(), request);
+        List<Ships> shipsList = shipsToUsersPage.getContent().stream().map(e -> shipsService.findById(e.getShipId())).collect(Collectors.toList());
+        return ServerResponse.success(shipsList);
+    }
+
+//    @PostMapping("/bindShipToUser")
+//    public ServerResponse bindShipToUser(){}
+
 }

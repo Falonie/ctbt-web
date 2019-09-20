@@ -44,7 +44,7 @@ public class AlarmServiceImplTest {
         alarm.setShipId(ships.getId());
         alarm.setShipName(ships.getName());
         alarm.setProductId(ships.getProductId());
-        alarm.setEquipmentId(ships.getEquipmentid());
+        alarm.setEquipmentId(ships.getEquipmentId() );
         alarm.setIsAllowAlarm("0");
         alarm.setContent("Falonie");
         alarm.setCreateTime(new Date());

@@ -21,7 +21,9 @@ import java.util.List;
 public class Ships {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ships_seq")
+    @SequenceGenerator(name = "ships_seq", sequenceName = "SHIPSSEQ", allocationSize = 1)
     @Column(name = "ID")
     private int id;
 
@@ -104,7 +106,7 @@ public class Ships {
     private String positionType;
 
     @Column(name = "EQUIPMENTID")
-    private String equipmentid;
+    private String equipmentId;
 
     @Column(name = "PRODUCTID")
     private String productId;//产品Id
@@ -203,7 +205,7 @@ public class Ships {
         this.aisType = "";
         this.bowDirection = 0.0;
         this.receiveDate = null;
-        this.equipmentid = "";
+        this.equipmentId = "";
         this.byName = "";
         this.productId = "";
     }
@@ -216,12 +218,12 @@ public class Ships {
         this.positionDate = positionDate;
     }
 
-    public Ships(int id, String name, String mmsi, String equipmentid, String productId, String owner, String phoneNumber) {
+    public Ships(int id, String name, String mmsi, String equipmentId, String productId, String owner, String phoneNumber) {
         super();
         this.id = id;
         this.name = name;
         this.mmsi = mmsi;
-        this.equipmentid = equipmentid;
+        this.equipmentId = equipmentId;
         this.productId = productId;
         this.owner = owner;
         this.phoneNumber = phoneNumber;

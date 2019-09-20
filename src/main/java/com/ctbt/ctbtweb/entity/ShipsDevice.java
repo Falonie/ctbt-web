@@ -14,7 +14,9 @@ import javax.persistence.*;
 @ToString
 public class ShipsDevice {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ships_device_seq")
+    @SequenceGenerator(name = "ships_device_seq", sequenceName = "SEQ_SHIPSDEVICEID", allocationSize = 1)
     @Column(name = "DEV_ID")
     private Integer devId;
 

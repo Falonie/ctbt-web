@@ -15,6 +15,8 @@ public interface ShipsService {
 
     Ships findByIdOrName(int id, String name);
 
+    Ships findByEquipmentId(String equipmentId);
+
     Page<Ships> findAll(Pageable pageable);
 
     Page<Ships> findByDeviceId(int equipmentId, int mmsi, Pageable pageable);

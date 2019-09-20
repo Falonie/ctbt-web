@@ -99,7 +99,7 @@ public class ShipsServiceImplTest {
     @Test
 //    @Transactional
     public void delete() {
-        Ships ships = shipsService.findById(1754716);
+        Ships ships = shipsService.findById(1759576);
         shipsService.delete(ships);
 //        Ships result = shipsService.findByIdOrName(0, "浙三渔04502");
 //        assertNull(result);

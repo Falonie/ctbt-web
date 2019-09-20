@@ -41,6 +41,11 @@ public class ShipsServiceImpl implements ShipsService {
     }
 
     @Override
+    public Ships findByEquipmentId(String equipmentId) {
+        return shipsDao.findByEquipmentId(equipmentId);
+    }
+
+    @Override
     public Page<Ships> findAll(Pageable pageable) {
         Page<Ships> shipsPage = shipsDao.findAll(pageable);
         return new PageImpl<Ships>(shipsPage.getContent(), pageable, shipsPage.getTotalElements());
@@ -48,7 +53,7 @@ public class ShipsServiceImpl implements ShipsService {
 
     @Override
     public Page<Ships> findByDeviceId(int equipmentId, int mmsi, Pageable pageable) {
-        Page<Ships> shipsPage = shipsDao.findByEquipmentidOrMmsi(String.valueOf(equipmentId), String.valueOf(mmsi), pageable);
+        Page<Ships> shipsPage = shipsDao.findByEquipmentIdOrMmsi(String.valueOf(equipmentId), String.valueOf(mmsi), pageable);
         return new PageImpl<Ships>(shipsPage.getContent(), pageable, shipsPage.getTotalElements());
     }
 
