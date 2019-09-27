@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("shipsToUsersService")
 public class ShipsToUsersServiceImpl implements ShipsToUsersService {
@@ -22,7 +23,22 @@ public class ShipsToUsersServiceImpl implements ShipsToUsersService {
     }
 
     @Override
+    public List<ShipsToUsers> findByShipId(int shipId) {
+        return shipsToUsersDao.findByShipId(shipId);
+    }
+
+    @Override
+    public ShipsToUsers findByUserIdAndShipId(int userId, int shipId) {
+        return shipsToUsersDao.findByUserIdAndShipId(userId, shipId);
+    }
+
+    @Override
     public ShipsToUsers save(ShipsToUsers shipsToUsers) {
         return shipsToUsersDao.save(shipsToUsers);
+    }
+
+    @Override
+    public void delete(ShipsToUsers shipsToUsers) {
+        shipsToUsersDao.delete(shipsToUsers);
     }
 }

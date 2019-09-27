@@ -16,12 +16,12 @@ import java.util.Date;
 @Component
 @Slf4j
 public class HttpAspect {
-    //    private final static Logger logger = LoggerFactory.getLogger(HttpAspect.class);
+//    private final static Logger logger = LoggerFactory.getLogger(HttpAspect.class);
     @Pointcut("execution(public * com.ctbt.ctbtweb.service.ShipsService.*(..))")
     public void shipLog() {
     }
 
-    //    @AfterReturning(value = "execution(* com.ctbt.ctbtweb.service.*.*(..))")
+//    @AfterReturning(value = "execution(* com.ctbt.ctbtweb.service.*.*(..))")
 //    public void afterReturning(JoinPoint joinPoint) {
     @AfterReturning(pointcut = "shipLog()")
     public void afterReturning(JoinPoint joinPoint) {

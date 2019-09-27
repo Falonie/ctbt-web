@@ -48,8 +48,8 @@ public class Log {
     @Column(name = "CLASSNAME")
     private String className;
 
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},optional = false)
-    @JoinColumn(name = "USERID")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
+    @JoinColumn(name = "USERID", referencedColumnName = "ID")
     private User user;
 
     public Log() {

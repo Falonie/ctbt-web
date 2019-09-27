@@ -14,20 +14,13 @@ import java.util.List;
 //@Data
 @Getter
 @Setter
-//@ToString
+@ToString
 public class User {
 
-    public User() {
-        super();
-    }
-
-    public User(int id) {
-        super();
-        this.id = id;
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(name = "user_seq", sequenceName = "USERSSEQ", allocationSize = 1)
     @Column(name = "ID")
     private int id;
 
@@ -53,13 +46,23 @@ public class User {
 //    @JsonIgnore
 //    private List<Ships> shipsList;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "SHIPSTOUSERS_TABLE", joinColumns = @JoinColumn(name = "USERID"),
             inverseJoinColumns = @JoinColumn(name = "SHIPID"))
     @JsonIgnore
     private List<Ships> shipsList;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Log> logList;
+
+    public User() {
+        super();
+    }
+
+    public User(int id) {
+        super();
+        this.id = id;
+    }
 }

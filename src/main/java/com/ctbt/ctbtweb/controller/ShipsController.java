@@ -157,7 +157,16 @@ public class ShipsController {
     }
 
     @PostMapping("/addShip")
-    public ServerResponse addShip(@Valid ShipForm shipForm, BindingResult bindingResult) {
+    public ServerResponse addShip(@Valid ShipForm shipForm, BindingResult bindingResult, HttpSession session,
+                                  @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+//        User user = (User) session.getAttribute(Constant.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.failByMsg("请先登录");
+//        }
+        User user = userService.findById(id);
+        if (user == null) {
+            return ServerResponse.failByMsg("该用户不存在");
+        }
         Ships ships = new Ships();
         if (bindingResult.hasErrors()) {
             return ServerResponse.failByMsg(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
@@ -169,7 +178,11 @@ public class ShipsController {
             return ServerResponse.failByMsg("该船舶已存在");
         }
         BeanUtils.copyProperties(shipForm, ships);
+        ShipsToUsers shipsToUsers = new ShipsToUsers();
+        shipsToUsers.setUserId(id);
         Ships result = shipsService.save(ships);
+        shipsToUsers.setShipId(result.getId());
+        shipsToUsersService.save(shipsToUsers);
         return ServerResponse.success("添加成功", result);
     }
 
@@ -188,12 +201,27 @@ public class ShipsController {
     }
 
     @DeleteMapping("/deleteShip/id/{id}")
-    public ServerResponse deleteShip(@PathVariable("id") int id) {
+    public ServerResponse deleteShip(@PathVariable("id") int id, HttpSession session,
+                                     @RequestParam(value = "userId", required = false, defaultValue = "0") int userId) {
+//        User user = (User) session.getAttribute(Constant.CURRENT_USER);
+//        if (user == null) {
+//            return ServerResponse.failByMsg("请先登录");
+//        }
+//        User user = userService.findById(userId);
+//        if (user == null) {
+//            return ServerResponse.failByMsg("该用户不存在");
+//        }
         Ships ship = shipsService.findById(id);
         if (ship == null) {
             return ServerResponse.failByMsg("该船舶不存在");
         }
+//        ShipsToUsers shipsToUsers = shipsToUsersService.findByUserIdAndShipId(userId, id);
+        List<ShipsToUsers> shipsToUsersList = shipsToUsersService.findByShipId(id);
         try {
+            if (!shipsToUsersList.isEmpty()) {
+                shipsToUsersList.forEach(e -> shipsToUsersService.delete(e));
+            }
+//            shipsToUsersService.delete(shipsToUsers);
             shipsService.delete(ship);
             return ServerResponse.successByMsg("删除成功");
         } catch (Exception e) {

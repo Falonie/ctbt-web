@@ -2,8 +2,11 @@ package com.ctbt.ctbtweb.service.impl;
 
 import com.ctbt.ctbtweb.entity.AlarmArea;
 import com.ctbt.ctbtweb.entity.Ships;
+import com.ctbt.ctbtweb.entity.User;
 import com.ctbt.ctbtweb.service.AlarmAreaService;
 import com.ctbt.ctbtweb.service.ShipsService;
+import com.ctbt.ctbtweb.service.ShipsToUsersService;
+import com.ctbt.ctbtweb.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,14 +30,18 @@ public class ShipsServiceImplTest {
     private ShipsService shipsService;
     @Resource
     private AlarmAreaService alarmAreaService;
+    @Resource
+    private UserService userService;
+    @Resource
+    private ShipsToUsersService shipsToUsersService;
 
     @Test
-//    @Transactional
+    @Transactional
     public void save() {
         Ships ships = new Ships();
 //        ships.setId(1111111111);
-        ships.setName("FalonieShip");
-        ships.setNumber("FalonieShip");
+        ships.setName("falonieShip10");
+//        ships.setNumber("falonieShip");
 //        ships.setName("testShip");
 //        ships.setNumber("testShip");
         ships.setMmsi("10000");
@@ -49,13 +56,20 @@ public class ShipsServiceImplTest {
         ships.setDestination("ZHOUSHAN");
         ships.setReceiveDate(new Date());
         ships.setPositionDate(new Date());
-        AlarmArea alarmArea = alarmAreaService.findByAreaIdOrAreaName(833, "");
-        List<AlarmArea> alarmAreaList = new ArrayList<>();
-        alarmAreaList.add(alarmArea);
+//        AlarmArea alarmArea = alarmAreaService.findByAreaIdOrAreaName(833, "");
+//        List<AlarmArea> alarmAreaList = new ArrayList<>();
+//        alarmAreaList.add(alarmArea);
 //        alarmAreaList.add(alarmAreaService.findByAreaIdOrAreaName(867, ""));
 //        ships.setSensitiveAreaList(alarmAreaList);
-//        Ships result = shipsService.save(ships);
-//        assertNotNull(result);
+
+        User user = userService.findById(856);
+        System.out.println("****user******"+user);
+        List<User> userList = new ArrayList<>();
+        userList.add(user);
+        ships.setUserList(userList);
+//        System.out.println("*******ships.getUserList()*****"+ships.getUserList());
+        Ships result = shipsService.save(ships);
+        assertNotNull(result);
     }
 
     @Test
@@ -72,7 +86,8 @@ public class ShipsServiceImplTest {
 
     @Test
     public void findByName() {
-        Ships ships = shipsService.findByName("ZHEPUYU19236");
+//        Ships ships = shipsService.findByName("ZHEPUYU19236");
+        Ships ships = shipsService.findByName("falonieShip4");
         assertNotNull(ships);
     }
 
@@ -99,7 +114,7 @@ public class ShipsServiceImplTest {
     @Test
 //    @Transactional
     public void delete() {
-        Ships ships = shipsService.findById(1759576);
+        Ships ships = shipsService.findById(1774096);
         shipsService.delete(ships);
 //        Ships result = shipsService.findByIdOrName(0, "浙三渔04502");
 //        assertNull(result);

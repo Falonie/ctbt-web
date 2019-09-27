@@ -1,12 +1,14 @@
 package com.ctbt.ctbtweb.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "CONTACT_TABLE")
 @Data
+@NoArgsConstructor
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,9 +27,6 @@ public class Contact {
 
     @Column(name = "SENDSTATE")
     private String sendState;//发送状态
-
-    public Contact() {
-    }
 
 
     public Contact(String name, String tel) {

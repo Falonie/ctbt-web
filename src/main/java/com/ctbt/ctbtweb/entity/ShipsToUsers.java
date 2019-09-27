@@ -14,7 +14,9 @@ import java.util.Date;
 @ToString
 public class ShipsToUsers {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shipsToUsers_seq")
+	@SequenceGenerator(name = "shipsToUsers_seq", sequenceName = "SHIPSTOUSERSSEQ", allocationSize = 1)
 	@Column(name = "ID")
 	private int id;
 

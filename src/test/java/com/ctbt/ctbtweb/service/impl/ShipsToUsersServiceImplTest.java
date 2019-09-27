@@ -11,8 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -30,13 +32,31 @@ public class ShipsToUsersServiceImplTest {
     }
 
     @Test
+    public void findByShipId() {
+        List<ShipsToUsers> shipsToUsersList = shipsToUsersService.findByShipId(1773994);
+        assertNotEquals(0, shipsToUsersList.size());
+    }
+
+    @Test
+    public void findByUserIdAndShipId() {
+    }
+
+    @Test
+    @Transactional
     public void save() {
         ShipsToUsers shipsToUsers = new ShipsToUsers();
-        shipsToUsers.setId(3014603);
-        shipsToUsers.setShipId(1753058);
-        shipsToUsers.setUserId(122);
+        shipsToUsers.setShipId(1773995);
+        shipsToUsers.setUserId(856);
         shipsToUsers.setUpdateEquipmentIdDate(new Date());
         ShipsToUsers result = shipsToUsersService.save(shipsToUsers);
         assertNotNull(result);
+    }
+
+    @Test
+    @Transactional
+    public void delete() {
+        ShipsToUsers shipsToUsers = shipsToUsersService.findByUserIdAndShipId(856, 1774105);
+        shipsToUsersService.delete(shipsToUsers);
+        assertNull(shipsToUsersService.findByUserIdAndShipId(856, 1774105));
     }
 }

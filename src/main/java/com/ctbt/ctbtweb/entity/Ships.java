@@ -2,6 +2,7 @@ package com.ctbt.ctbtweb.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -164,7 +165,7 @@ public class Ships {
 //    @JoinColumn(name = "SHIPS_ID", referencedColumnName = "ID")
 //    private User user;
 
-    @ManyToMany(mappedBy = "shipsList")
+    @ManyToMany(mappedBy = "shipsList", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<User> userList;
 

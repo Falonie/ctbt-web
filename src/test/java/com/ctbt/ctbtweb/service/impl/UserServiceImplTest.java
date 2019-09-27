@@ -27,10 +27,10 @@ public class UserServiceImplTest {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Test
-    @Transactional
+//    @Transactional
     public void save() {
         User user = new User();
-        user.setUsername("falonie");
+        user.setUsername("Durant");
 //        user.setPassword("10000");
         user.setPassword(bCryptPasswordEncoder.encode("10000"));
         user.setCreateTime(new Date());
@@ -63,11 +63,11 @@ public class UserServiceImplTest {
     }
 
     @Test
-    @Transactional
+//    @Transactional
     public void delete() {
-        User user = userService.findById(1444);
+        User user = userService.findById(854);
         userService.delete(user);
-        assertNull(userService.findById(1444));
+        assertNull(userService.findById(854));
     }
 
     @Test
