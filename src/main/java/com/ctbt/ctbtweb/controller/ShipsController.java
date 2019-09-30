@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -186,6 +187,14 @@ public class ShipsController {
         return ServerResponse.success("添加成功", result);
     }
 
+    /**
+     * 修改船舶信息
+     *
+     * @param id            船舶ID
+     * @param shipForm
+     * @param bindingResult
+     * @return
+     */
     @PutMapping("/editShip/id/{id}")
     public ServerResponse editShip(@PathVariable("id") int id, @Valid ShipForm shipForm, BindingResult bindingResult) {
         Ships ships = shipsService.findById(id);
@@ -200,6 +209,14 @@ public class ShipsController {
         return ServerResponse.success(result);
     }
 
+    /**
+     * 删除船舶
+     *
+     * @param id      船舶ID
+     * @param session
+     * @param userId
+     * @return
+     */
     @DeleteMapping("/deleteShip/id/{id}")
     public ServerResponse deleteShip(@PathVariable("id") int id, HttpSession session,
                                      @RequestParam(value = "userId", required = false, defaultValue = "0") int userId) {
@@ -228,4 +245,60 @@ public class ShipsController {
             return ServerResponse.failByMsg("删除失败");
         }
     }
+
+    /**
+     * 添加绑定船舶至指定用户
+     *
+     * @param shipId 船舶ID
+     * @param userId 用户ID
+     * @return
+     */
+    @PostMapping("/addShipToUser")
+    public ServerResponse addShipToUser(@RequestParam("shipId") int shipId,
+                                        @RequestParam("userId") int userId) {
+        Ships ships = shipsService.findById(shipId);
+        if (ships == null) {
+            return ServerResponse.failByMsg("该船舶不存在");
+        }
+        ShipsToUsers shipsToUsers = new ShipsToUsers(shipId, userId, new Date());
+        ShipsToUsers result = shipsToUsersService.save(shipsToUsers);
+        return ServerResponse.success("添加成功", result);
+    }
+
+    @PostMapping("/bindShipToUser")
+    public ServerResponse bindShipToUser(@RequestParam("shipId") int shipId,
+                                         @RequestParam("userId") int userId) {
+        Ships ships = shipsService.findById(shipId);
+        if (ships == null) {
+            return ServerResponse.failByMsg("该船舶不存在");
+        }
+        ShipsToUsers shipsToUsers = new ShipsToUsers(shipId, userId, new Date());
+        ShipsToUsers result = shipsToUsersService.save(shipsToUsers);
+        return ServerResponse.success("添加成功", result);
+    }
+
+    /**
+     * 解绑船舶与用户的关系
+     *
+     * @param shipId 船舶ID
+     * @param userId 用户ID
+     * @return
+     */
+    @DeleteMapping("/unbindShipToUser")
+    public ServerResponse deleteShipToUser(@RequestParam("shipId") int shipId,
+                                           @RequestParam("userId") int userId) {
+        Ships ships = shipsService.findById(shipId);
+        if (ships == null) {
+            return ServerResponse.failByMsg("该船舶不存在");
+        }
+        ShipsToUsers shipsToUsers = shipsToUsersService.findByUserIdAndShipId(userId, shipId);
+        try {
+            shipsToUsersService.delete(shipsToUsers);
+            return ServerResponse.successByMsg("解绑成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ServerResponse.failByMsg("解绑失败");
+        }
+    }
+
 }

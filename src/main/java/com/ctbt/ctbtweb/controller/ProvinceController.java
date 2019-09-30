@@ -29,7 +29,6 @@ public class ProvinceController {
 //        List<Province> provinceList = provinceService.findAll();
         PageRequest request = PageRequest.of(page, 10);
         Page<Province> provincePage = provinceService.findAll(request);
-        System.out.println("**********" + provincePage.getContent() + "**********");
         return ServerResponse.success(provincePage.getContent());
     }
 

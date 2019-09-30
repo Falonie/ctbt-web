@@ -1,8 +1,6 @@
 package com.ctbt.ctbtweb.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class ShipsToUsers {
 	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +30,9 @@ public class ShipsToUsers {
     @Column(name = "UPDATEEQUIPMENTIDDATE")
 	private Date updateEquipmentIdDate; //最新修改卡号的时间
 
-	public ShipsToUsers() {
-		super();
+	public ShipsToUsers(int shipId, int userId, Date updateEquipmentIdDate) {
+		this.shipId = shipId;
+		this.userId = userId;
+		this.updateEquipmentIdDate = updateEquipmentIdDate;
 	}
 }
