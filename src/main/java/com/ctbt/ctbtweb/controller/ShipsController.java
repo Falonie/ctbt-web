@@ -9,6 +9,7 @@ import com.ctbt.ctbtweb.entity.User;
 import com.ctbt.ctbtweb.forms.ShipForm;
 import com.ctbt.ctbtweb.forms.ShipSearchForm;
 import com.ctbt.ctbtweb.service.*;
+import com.ctbt.ctbtweb.vo.BindShipRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -265,17 +266,17 @@ public class ShipsController {
         return ServerResponse.success("添加成功", result);
     }
 
-    @PostMapping("/bindShipToUser")
-    public ServerResponse bindShipToUser(@RequestParam("shipId") int shipId,
-                                         @RequestParam("userId") int userId) {
-        Ships ships = shipsService.findById(shipId);
-        if (ships == null) {
-            return ServerResponse.failByMsg("该船舶不存在");
-        }
-        ShipsToUsers shipsToUsers = new ShipsToUsers(shipId, userId, new Date());
-        ShipsToUsers result = shipsToUsersService.save(shipsToUsers);
-        return ServerResponse.success("添加成功", result);
-    }
+//    @PostMapping("/bindShipToUser")
+//    public ServerResponse bindShipToUser(@RequestBody BindShipRequest bindShipRequest,
+//                                         @RequestParam("userId") int userId) {
+//        Ships ships = shipsService.findById(shipId);
+//        if (ships == null) {
+//            return ServerResponse.failByMsg("该船舶不存在");
+//        }
+//        ShipsToUsers shipsToUsers = new ShipsToUsers(shipId, userId, new Date());
+//        ShipsToUsers result = shipsToUsersService.save(shipsToUsers);
+//        return ServerResponse.success("添加成功", result);
+//    }
 
     /**
      * 解绑船舶与用户的关系

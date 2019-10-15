@@ -103,4 +103,13 @@ public class UserServiceImplTest {
         ServerResponse response = userService.checkValid("falonie");
         assertEquals(400, response.getCode());
     }
+
+    @Test
+    public void findAllByTypeNotInRoleId() {
+        PageRequest request = PageRequest.of(0, 10);
+        Page<User> userPage = userService.findAllByTypeNotInRoleId(3,request);
+        System.out.println("*********" + userPage.getTotalElements() + "********");
+        System.out.println("*********" + userPage + "********");
+        assertNotEquals(0, userPage.getTotalElements());
+    }
 }

@@ -126,4 +126,9 @@ public class UserServiceImpl implements UserService {
         return ServerResponse.successByMsg("修改成功");
     }
 
+    @Override
+    public Page<User> findAllByTypeNotInRoleId(int roleId, Pageable pageable) {
+        Page<User> userPage = userDao.findAllByTypeNotInRoleId(roleId, pageable);
+        return new PageImpl<User>(userPage.getContent(), pageable, userPage.getTotalElements());
+    }
 }

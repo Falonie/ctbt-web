@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Getter
@@ -18,6 +19,7 @@ public class ShipForm {
 
     private String county;
 
+    @NotEmpty(message = "船名不能为空")
     private String name;
 
     private String byName;
@@ -26,6 +28,7 @@ public class ShipForm {
 
     private String callSign;
 
+    @NotEmpty(message = "MMSI不能为空")
     private String mmsi;
 
     private String imo;
@@ -62,6 +65,7 @@ public class ShipForm {
 
     private String positionType;
 
+    @NotEmpty(message = "示位仪卡号不能为空")
     private String equipmentId;
 
     private String productId;//产品Id

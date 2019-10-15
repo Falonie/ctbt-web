@@ -27,10 +27,11 @@ public interface UserService {
 
     ServerResponse<User> login(String name, String password);
 
-    ServerResponse<String> resetPassword(String oldPassword, String newPassword, String confirmPassword,User user);
+    ServerResponse<String> resetPassword(String oldPassword, String newPassword, String confirmPassword, User user);
 
     ServerResponse checkValid(String str);
 
     ServerResponse editProfile(User user);
 
+    Page<User> findAllByTypeNotInRoleId(int roleId, Pageable pageable);
 }

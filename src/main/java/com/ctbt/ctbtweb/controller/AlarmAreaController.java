@@ -79,7 +79,7 @@ public class AlarmAreaController {
     }
 
     @GetMapping("/listShiptoAlarmArea")
-    public ServerResponse listShiptoAlarmArea(@RequestParam(value = "page", defaultValue = "1") Integer page,
+    public ServerResponse listShipToAlarmArea(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                               @RequestParam(value = "size", defaultValue = "10") Integer size) {
         PageRequest request = PageRequest.of(page - 1, 20);
         Page<ShipsToAlarmArea> shipsToAlarmAreaPage = shipsToAlarmAreaService.findAll(request);
