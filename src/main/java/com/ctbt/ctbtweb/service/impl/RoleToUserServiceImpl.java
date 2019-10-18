@@ -22,4 +22,19 @@ public class RoleToUserServiceImpl implements RoleToUserService {
 //    public List<RoleToUser> findAllByRoleIdNot(int roleId) {
 //        return roleToUserDao.findAllByRoleIdNot(roleId);
 //    }
+
+    @Override
+    public RoleToUser findByUserIdAndRoleId(int userId, int roleId) {
+        return roleToUserDao.findByUserIdAndRoleId(userId, roleId);
+    }
+
+    @Override
+    public RoleToUser save(RoleToUser roleToUser) {
+        return roleToUserDao.save(roleToUser);
+    }
+
+    @Override
+    public void delete(RoleToUser roleToUser) {
+        roleToUserDao.delete(roleToUser);
+    }
 }

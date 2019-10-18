@@ -87,7 +87,7 @@ public class ShipsServiceImplTest {
     @Test
     public void findByName() {
 //        Ships ships = shipsService.findByName("ZHEPUYU19236");
-        Ships ships = shipsService.findByName("falonieShip4");
+        Ships ships = shipsService.findByName("falonieShip");
         assertNotNull(ships);
     }
 

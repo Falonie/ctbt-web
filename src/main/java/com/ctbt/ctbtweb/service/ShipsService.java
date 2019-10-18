@@ -29,6 +29,14 @@ public interface ShipsService {
 
     Page<Ships> findByIsUnpowerAndUserId(int userId, Pageable pageable);
 
+    Page<Ships> findByProductIdAndEquipmentIdAndNameAndIdAndMmsi(
+            int userId, int loginUserId, String productId, String shipName, String mmsi, int id, String equipmentId, Pageable pageable
+    );
+
+    Page<Ships> findByProductIdAndUserIdAndLoginUserId(
+            int userId,int loginUserId,String productId,Pageable pageable
+    );
+
     void delete(Ships ships);
 
     void addShipToSensitiveArea(Ships ships);

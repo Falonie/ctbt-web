@@ -90,7 +90,7 @@ public class RoleController {
 
     /**
      * @param roleId 角色ID
-     * @return 返回该角色的用户
+     * @return 返回绑定该角色的用户
      */
     @GetMapping("/roleToUserList/roleId/{roleId}")
     public ServerResponse roleToUserList(@PathVariable("roleId") int roleId) {
@@ -120,5 +120,49 @@ public class RoleController {
         PageRequest request = PageRequest.of(page - 1, 10);
         Page<User> userPage = userService.findAllByTypeNotInRoleId(roleId, request);
         return ServerResponse.success(userPage.getContent());
+    }
+
+    /**
+     * @param roleId 角色ID
+     * @param userId 用户ID
+     * @return 绑定该角色与该用户的关联关系
+     */
+    @PostMapping("/bindRoleToUser/roleId/{roleId}")
+    public ServerResponse bindRoleToUser(@PathVariable("roleId") int roleId, @RequestParam("userId") int userId) {
+        Role role = roleService.findOne(roleId);
+        if (role == null) {
+            return ServerResponse.failByMsg("该角色不存在");
+        }
+        RoleToUser roleToUser2 = roleToUserService.findByUserIdAndRoleId(userId, roleId);
+        if (roleToUser2 != null) {
+            return ServerResponse.failByMsg("该用户已绑定该角色");
+        }
+        RoleToUser roleToUser = new RoleToUser(userId, roleId);
+        RoleToUser result = roleToUserService.save(roleToUser);
+        return ServerResponse.success("绑定成功", result);
+    }
+
+    /**
+     * @param roleId 角色ID
+     * @param userId 用户ID
+     * @return 删除该角色与该用户的关联关系
+     */
+    @DeleteMapping("/unbindRoleToUser/roleId/{roleId}")
+    public ServerResponse unbindRoleToUser(@PathVariable("roleId") int roleId, @RequestParam("userId") int userId) {
+        Role role = roleService.findOne(roleId);
+        if (role == null) {
+            return ServerResponse.failByMsg("该角色不存在");
+        }
+        RoleToUser roleToUser = roleToUserService.findByUserIdAndRoleId(userId, roleId);
+        if (roleToUser == null) {
+            return ServerResponse.failByMsg("该用户未绑定该角色");
+        }
+        try {
+            roleToUserService.delete(roleToUser);
+            return ServerResponse.successByMsg("删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ServerResponse.failByMsg("删除失败");
+        }
     }
 }

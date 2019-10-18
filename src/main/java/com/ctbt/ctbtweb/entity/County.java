@@ -1,28 +1,17 @@
 package com.ctbt.ctbtweb.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "COUNTY_TABLE")
-//@Data
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class County {
-
-    public County() {
-        super();
-    }
-
-    public County(int id) {
-        super();
-        this.id = id;
-    }
-
     @Column(name = "ID")
     private int id;
 
@@ -33,7 +22,8 @@ public class County {
 //    private int cityId;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "county_seq")
+    @SequenceGenerator(name = "county_seq", sequenceName = "COUNTYSEQ", allocationSize = 1)
     @Column(name = "COUNTYID")
     private int countyId;
 
@@ -45,4 +35,8 @@ public class County {
     @JsonIgnore
     private List<Town> townList;
 
+    public County(int id) {
+        super();
+        this.id = id;
+    }
 }

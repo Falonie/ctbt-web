@@ -1,6 +1,7 @@
 package com.ctbt.ctbtweb.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,9 +9,11 @@ import java.util.Date;
 @Entity
 @Table(name = "PUSHDATA_TABLE")
 @Data
+@NoArgsConstructor
 public class PushData {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pushdata_seq")
+    @SequenceGenerator(name = "pushdata_seq", sequenceName = "PUSHDATASEQ", allocationSize = 1)
     @Column(name = "ID")
     private int id;
 
@@ -46,10 +49,6 @@ public class PushData {
 
     @Column(name = "PASSWORD")
     private String password;    //密码 用于维持链接
-
-    public PushData() {
-        super();
-    }
 
     public PushData(int id) {
         super();

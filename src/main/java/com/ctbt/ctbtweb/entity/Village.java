@@ -1,23 +1,18 @@
 package com.ctbt.ctbtweb.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "VILLAGE_TABLE")
-//@Data
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Village {
-
-	public Village() {
-		super();
-	}
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "village_seq")
+	@SequenceGenerator(name = "village_seq", sequenceName = "VILLAGESEQ", allocationSize = 1)
 	@Column(name = "ID")
 	private int id;
 

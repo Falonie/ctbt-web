@@ -1,20 +1,19 @@
 package com.ctbt.ctbtweb.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "LOG_TABLE")
-//@Data
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Log {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "log_seq")
+    @SequenceGenerator(name = "log_seq", sequenceName = "LOGSEQ", allocationSize = 1)
     @Column(name = "ID")
     private Integer id;
 
@@ -51,23 +50,4 @@ public class Log {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
     @JoinColumn(name = "USERID", referencedColumnName = "ID")
     private User user;
-
-    public Log() {
-        super();
-    }
-
-    public Log(User user, String content, Date date, String ipAddress,
-               String trueAddress, String clientType, String type,
-               String operationType, String className) {
-        super();
-        this.user = user;
-        this.content = content;
-        this.date = date;
-        this.ipAddress = ipAddress;
-        this.trueAddress = trueAddress;
-        this.clientType = clientType;
-        this.type = type;
-        this.operationType = operationType;
-        this.className = className;
-    }
 }

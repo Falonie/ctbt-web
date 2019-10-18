@@ -67,8 +67,18 @@ public class ShipsServiceImpl implements ShipsService {
 
     @Override
     public Page<Ships> findByIsUnpowerAndUserId(int userId, Pageable pageable) {
-        Page<Ships> shipsPage = shipsDao.findByIsUnpowerAndUserId( userId,"1", pageable);
+        Page<Ships> shipsPage = shipsDao.findByIsUnpowerAndUserId(userId, "1", pageable);
         return new PageImpl<Ships>(shipsPage.getContent(), pageable, shipsPage.getTotalElements());
+    }
+
+    @Override
+    public Page<Ships> findByProductIdAndEquipmentIdAndNameAndIdAndMmsi(int userId, int loginUserId, String productId, String shipName, String mmsi, int id, String equipmentId, Pageable pageable) {
+        return shipsDao.findByProductIdAndEquipmentIdAndNameAndIdAndMmsi(userId, loginUserId, productId, shipName, mmsi, id, equipmentId, pageable);
+    }
+
+    @Override
+    public Page<Ships> findByProductIdAndUserIdAndLoginUserId(int userId, int loginUserId, String productId, Pageable pageable) {
+        return shipsDao.findByProductIdAndUserIdAndLoginUserId(userId, loginUserId, productId, pageable);
     }
 
     @Override

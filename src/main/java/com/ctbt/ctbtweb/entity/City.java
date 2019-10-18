@@ -1,32 +1,19 @@
 package com.ctbt.ctbtweb.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "CITY_TABLE")
-//@Data
-@Getter
-@Setter
-//@ToString
+@Data
+@NoArgsConstructor
 public class City {
-
-    public City() {
-        super();
-    }
-
-    public City(int id) {
-        super();
-        this.id = id;
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "city_seq")
+    @SequenceGenerator(name = "city_seq", sequenceName = "CITYSEQ", allocationSize = 1)
     @Column(name = "CITYID")
     private int cityId;
 
@@ -46,4 +33,9 @@ public class City {
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<County> countyList;
+
+    public City(int id) {
+        super();
+        this.id = id;
+    }
 }

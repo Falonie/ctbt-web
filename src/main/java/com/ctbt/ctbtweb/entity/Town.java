@@ -1,7 +1,9 @@
 package com.ctbt.ctbtweb.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,17 +11,12 @@ import java.util.List;
 
 @Entity
 @Table(name = "TOWN_TABLE")
-//@Data
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class Town {
-
-    public Town() {
-        super();
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "town_seq")
+    @SequenceGenerator(name = "town_seq", sequenceName = "TOWNSEQ", allocationSize = 1)
     @Column(name = "ID")
     private int id;
 

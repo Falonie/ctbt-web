@@ -18,11 +18,10 @@ import java.util.List;
 //@Data
 @Getter
 @Setter
-//@ToString
+@ToString
 public class Ships {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ships_seq")
     @SequenceGenerator(name = "ships_seq", sequenceName = "SHIPSSEQ", allocationSize = 1)
     @Column(name = "ID")

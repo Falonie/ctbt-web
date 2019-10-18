@@ -33,4 +33,20 @@ public interface ShipsDao extends JpaRepository<Ships, Integer> {
     @Query(value = "select * from SHIPS_TABLE where ID in " +
             "(select SHIPID from SHIPSTOUSERS_TABLE where USERID=:userId) and ISUNPOWER=:isUnpower", nativeQuery = true)
     Page<Ships> findByIsUnpowerAndUserId(int userId, String isUnpower, Pageable pageable);
+
+    @Query(value = "select * from SHIPS_TABLE s where (s.ID not in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:userId)" +
+            " and s.ID in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:loginUserId))" +
+            " and (s.PRODUCTID like %:productId% and s.NAME like %:shipName% and s.MMSI like %:mmsi% " +
+            " and s.ID like %:id% and s.EQUIPMENTID like %:equipmentId%)", nativeQuery = true)
+    Page<Ships> findByProductIdAndEquipmentIdAndNameAndIdAndMmsi(
+            int userId, int loginUserId, String productId, String shipName, String mmsi, int id, String equipmentId, Pageable pageable
+    );
+
+    @Query(value = "select * from SHIPS_TABLE where (ID not in (select SHIPID from SHIPSTOUSERS_TABLE where USERID=:userId)" +
+            " and ID in (select SHIPID from SHIPSTOUSERS_TABLE where USERID=:loginUserId))"+
+            " and (PRODUCTID like %:productId%)"
+            , nativeQuery = true)
+    Page<Ships> findByProductIdAndUserIdAndLoginUserId(
+            int userId, int loginUserId, String productId, Pageable pageable
+    );
 }

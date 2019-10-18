@@ -3,27 +3,17 @@ package com.ctbt.ctbtweb.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "PROVINCE_TABLE", indexes = {@Index(columnList = "id")})
-//@Data
 @Getter
 @Setter
-//@ToString
+@ToString
 public class Province {
-
-    public Province() {
-        super();
-    }
-
-    public Province(int id) {
-        super();
-        this.id = id;
-    }
-
     @Column(name = "ID")
     private int id;
 
@@ -34,7 +24,8 @@ public class Province {
 //    private int nationId;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "province_seq")
+    @SequenceGenerator(name = "province_seq", sequenceName = "PROVINCESEQ", allocationSize = 1)
     @Column(name = "PROVINCEID")
     private int provinceId;
 
@@ -45,4 +36,13 @@ public class Province {
     @OneToMany(mappedBy = "province", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<City> cityList;
+
+    public Province() {
+        super();
+    }
+
+    public Province(int id) {
+        super();
+        this.id = id;
+    }
 }

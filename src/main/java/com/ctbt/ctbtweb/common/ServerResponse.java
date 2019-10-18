@@ -1,5 +1,6 @@
 package com.ctbt.ctbtweb.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +20,11 @@ public class ServerResponse<T> {
         this.code = code;
         this.msg = msg;
         this.data = data;
+    }
+
+    @JsonIgnore
+    public boolean isSuccess() {
+        return this.code == ResponseCode.SUCCESS.getCode();
     }
 
     public static <T> ServerResponse<T> successByMsg(String message) {

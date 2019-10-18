@@ -11,7 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Contact {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_seq")
+    @SequenceGenerator(name = "contact_seq", sequenceName = "CONTACTSSEQ", allocationSize = 1)
     @Column(name = "ID")
     private int id;
 

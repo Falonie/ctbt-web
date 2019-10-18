@@ -9,4 +9,6 @@ public interface RoleToUserDao extends JpaRepository<RoleToUser, Integer> {
     List<RoleToUser> findAllByRoleId(int roleId);
 
     List<RoleToUser> findAllByRoleIdNot(int roleId);
+
+    RoleToUser findByUserIdAndRoleId(int userId, int roleId);
 }
