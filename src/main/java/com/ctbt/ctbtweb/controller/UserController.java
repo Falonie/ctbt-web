@@ -167,20 +167,19 @@ public class UserController {
         return ServerResponse.success(shipsList);
     }
 
-    //    @PostMapping("/bindShipToUser")
-//    public ServerResponse bindShipToUser(){}
-    @GetMapping("/unbindShipsList")
-    public ServerResponse unbindShipsList(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                                          @RequestParam(value = "size", defaultValue = "10") Integer size,
-                                          @RequestParam(value = "shipId", required = false, defaultValue = "0") int shipId,
-                                          @RequestParam(value = "username", required = false) String username,
-                                          @RequestParam(value = "productId", defaultValue = "") String productId,
-                                          @RequestParam(value = "equipmentId", defaultValue = "") String equipmentId,
-                                          @RequestParam(value = "name", defaultValue = "") String shipName,
-                                          @RequestParam(value = "mmsi", defaultValue = "") String mmsi,
-                                          @RequestParam(value = "userId") int userId,
-                                          @RequestParam(value = "loginUserId") int loginUserId,
-                                          HttpSession session) {
+
+    @GetMapping("/unbindShipsListByProductId")
+    public ServerResponse unbindShipsListByProductId(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                     @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                     @RequestParam(value = "shipId", required = false, defaultValue = "0") int shipId,
+                                                     @RequestParam(value = "username", required = false) String username,
+                                                     @RequestParam(value = "productId", defaultValue = "") String productId,
+                                                     @RequestParam(value = "equipmentId", defaultValue = "") String equipmentId,
+                                                     @RequestParam(value = "name", defaultValue = "") String shipName,
+                                                     @RequestParam(value = "mmsi", defaultValue = "") String mmsi,
+                                                     @RequestParam(value = "userId", required = false, defaultValue = "") int userId,
+                                                     @RequestParam(value = "loginUserId", required = false, defaultValue = "") int loginUserId,
+                                                     HttpSession session) {
 //        User user = (User) session.getAttribute(Constant.CURRENT_USER);
 //        int loginUserId = user.getId();
 //        User user = userService.findByIdOrUsername(loginUserId, username);
@@ -188,24 +187,19 @@ public class UserController {
 //            return ServerResponse.failByMsg("请先登录");
 //        }
         PageRequest request = PageRequest.of(page - 1, 10);
-        Page<Ships> shipsPage = shipsService.findByProductIdAndEquipmentIdAndNameAndIdAndMmsi(userId, loginUserId, productId, shipName, mmsi, shipId, equipmentId, request);
+        Page<Ships> shipsPage = shipsService.findByProductIdAndUserIdAndLoginUserId(userId, loginUserId, productId, request);
+//        Page<Ships> shipsPage = shipsService.findByProductIdAndEquipmentIdAndNameAndIdAndMmsi(userId, loginUserId, productId, shipName, mmsi, shipId, equipmentId, request);
         List<Ships> shipsList = shipsPage.getContent();
-        return ServerResponse.success(shipsPage);
+        return ServerResponse.success(shipsList);
     }
 
-
-    @GetMapping("/unbindShipsList2")
-    public ServerResponse unbindShipsList2(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                                           @RequestParam(value = "size", defaultValue = "10") Integer size,
-                                           @RequestParam(value = "shipId", required = false, defaultValue = "0") int shipId,
-                                           @RequestParam(value = "username", required = false) String username,
-                                           @RequestParam(value = "productId", defaultValue = "") String productId,
-                                           @RequestParam(value = "equipmentId", defaultValue = "") String equipmentId,
-                                           @RequestParam(value = "name", defaultValue = "") String shipName,
-                                           @RequestParam(value = "mmsi", defaultValue = "") String mmsi,
-                                           @RequestParam(value = "userId", required = false, defaultValue = "") int userId,
-                                           @RequestParam(value = "loginUserId", required = false, defaultValue = "") int loginUserId,
-                                           HttpSession session) {
+    @GetMapping("/unbindShipsListByMmsi")
+    public ServerResponse unbindShipsListByMmsi(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                @RequestParam(value = "mmsi", defaultValue = "") String mmsi,
+                                                @RequestParam(value = "userId", required = false, defaultValue = "") int userId,
+                                                @RequestParam(value = "loginUserId", required = false, defaultValue = "") int loginUserId,
+                                                HttpSession session) {
 //        User user = (User) session.getAttribute(Constant.CURRENT_USER);
 //        int loginUserId = user.getId();
 //        User user = userService.findByIdOrUsername(loginUserId, username);
@@ -213,11 +207,27 @@ public class UserController {
 //            return ServerResponse.failByMsg("请先登录");
 //        }
         PageRequest request = PageRequest.of(page - 1, 10);
-//        Page<Ships> shipsPage = shipsService.findByProductIdAndLoginUserId(userId,loginUserId,productId,request);
-//        Page<Ships> shipsPage = shipsService.findByProductIdAndUserIdAndLoginUserId(userId,loginUserId,productId,request);
-        Page<Ships> shipsPage = shipsService.findByProductIdAndEquipmentIdAndNameAndIdAndMmsi(userId, loginUserId, productId, shipName, mmsi, shipId, equipmentId, request);
+        Page<Ships> shipsPage = shipsService.findByMmsiIdAndUserIdAndLoginUserId(userId, loginUserId, mmsi, request);
         List<Ships> shipsList = shipsPage.getContent();
         return ServerResponse.success(shipsPage);
     }
 
+    @GetMapping("/unbindShipsListByName")
+    public ServerResponse unbindShipsListByName(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                @RequestParam(value = "name", defaultValue = "") String shipName,
+                                                @RequestParam(value = "userId", required = false, defaultValue = "") int userId,
+                                                @RequestParam(value = "loginUserId", required = false, defaultValue = "") int loginUserId,
+                                                HttpSession session) {
+//        User user = (User) session.getAttribute(Constant.CURRENT_USER);
+//        int loginUserId = user.getId();
+//        User user = userService.findByIdOrUsername(loginUserId, username);
+//        if (user == null) {
+//            return ServerResponse.failByMsg("请先登录");
+//        }
+        PageRequest request = PageRequest.of(page - 1, 10);
+        Page<Ships> shipsPage = shipsService.findByNameAndUserIdAndLoginUserId(userId, loginUserId, shipName, request);
+        List<Ships> shipsList = shipsPage.getContent();
+        return ServerResponse.success(shipsPage);
+    }
 }

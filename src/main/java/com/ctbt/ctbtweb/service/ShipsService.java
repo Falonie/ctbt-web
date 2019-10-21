@@ -34,7 +34,15 @@ public interface ShipsService {
     );
 
     Page<Ships> findByProductIdAndUserIdAndLoginUserId(
-            int userId,int loginUserId,String productId,Pageable pageable
+            int userId, int loginUserId, String productId, Pageable pageable
+    );
+
+    Page<Ships> findByMmsiIdAndUserIdAndLoginUserId(
+            int userId, int loginUserId, String mmsi, Pageable pageable
+    );
+
+    Page<Ships> findByNameAndUserIdAndLoginUserId(
+            int userId, int loginUserId, String shipName, Pageable pageable
     );
 
     void delete(Ships ships);

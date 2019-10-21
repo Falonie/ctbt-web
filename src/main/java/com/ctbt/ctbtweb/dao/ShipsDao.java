@@ -49,4 +49,20 @@ public interface ShipsDao extends JpaRepository<Ships, Integer> {
     Page<Ships> findByProductIdAndUserIdAndLoginUserId(
             int userId, int loginUserId, String productId, Pageable pageable
     );
+
+    @Query(value = "select * from SHIPS_TABLE s where (s.ID not in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:userId)" +
+            " and s.ID in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:loginUserId))"+
+            " and (s.MMSI like %:mmsi%)"
+            , nativeQuery = true)
+    Page<Ships> findByMmsiIdAndUserIdAndLoginUserId(
+            int userId, int loginUserId, String mmsi, Pageable pageable
+    );
+
+    @Query(value = "select * from SHIPS_TABLE s where (s.ID not in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:userId)" +
+            " and s.ID in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:loginUserId))"+
+            " and (s.NAME like %:shipName%)"
+            , nativeQuery = true)
+    Page<Ships> findByNameAndUserIdAndLoginUserId(
+            int userId, int loginUserId, String shipName, Pageable pageable
+    );
 }
