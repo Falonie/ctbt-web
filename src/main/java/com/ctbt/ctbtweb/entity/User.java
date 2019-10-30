@@ -2,6 +2,7 @@ package com.ctbt.ctbtweb.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -56,10 +58,6 @@ public class User {
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Log> logList;
-
-    public User() {
-        super();
-    }
 
     public User(int id) {
         super();

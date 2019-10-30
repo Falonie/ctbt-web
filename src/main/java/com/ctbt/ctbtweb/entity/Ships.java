@@ -168,6 +168,10 @@ public class Ships {
     @JsonIgnore
     private List<User> userList;
 
+    @OneToMany(mappedBy = "ships",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<AlarmRecord> alarmRecordList;
+
 //    @ManyToMany
 //    @JoinTable(name = "SHIPSTOALARMAREA_TABLE", joinColumns = @JoinColumn(name = "SHIPID"),
 //            inverseJoinColumns = @JoinColumn(name = "AREAID"))

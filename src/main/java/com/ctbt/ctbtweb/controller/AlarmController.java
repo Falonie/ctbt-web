@@ -3,11 +3,9 @@ package com.ctbt.ctbtweb.controller;
 import com.ctbt.ctbtweb.common.ServerResponse;
 import com.ctbt.ctbtweb.converter.AlarmAreaToAlarmAreaDetail;
 import com.ctbt.ctbtweb.dto.AlarmAreaDetailDto;
-import com.ctbt.ctbtweb.entity.Alarm;
-import com.ctbt.ctbtweb.entity.AlarmArea;
-import com.ctbt.ctbtweb.entity.Ships;
-import com.ctbt.ctbtweb.entity.User;
+import com.ctbt.ctbtweb.entity.*;
 import com.ctbt.ctbtweb.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +14,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/alarm")
+@Slf4j
 public class AlarmController {
     @Resource
     private AlarmAreaService alarmAreaService;
@@ -30,6 +30,10 @@ public class AlarmController {
     private UserService userService;
     @Resource
     private AlarmService alarmService;
+    @Resource
+    private AlarmToUserService alarmToUserService;
+    @Resource
+    private AlarmRecordService alarmRecordService;
 
     /**
      * 显示当前用户的警戒区域
@@ -98,7 +102,7 @@ public class AlarmController {
     public ServerResponse add(@RequestParam("shipId") int shipId, @RequestParam("areaId") int areaId,
                               @RequestParam(value = "isAllowAlarm") String isAllowAlarm,
                               @RequestParam(value = "content", required = false) String content,
-                              @RequestParam(value = "addReason",required = false) String addReason) {
+                              @RequestParam(value = "addReason", required = false) String addReason) {
         Ships ships = shipsService.findById(shipId);
         if (ships == null) {
             return ServerResponse.failByMsg("该船舶不存在");
@@ -147,5 +151,21 @@ public class AlarmController {
 //            e.printStackTrace();
             return ServerResponse.successByMsg("删除失败");
         }
+    }
+
+    /**
+     * @param id   userId
+     * @param page default 1
+     * @param size default 10
+     * @return 报警记录列表
+     */
+    @GetMapping("/alarmRecordListByUserId/id/{id:[0-9]+}")
+    public ServerResponse alarmRecordListByUserId(@PathVariable("id") int id,
+                                                  @RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                  @RequestParam(value = "size", defaultValue = "10") Integer size) {
+        PageRequest request = PageRequest.of(page - 1, 10);
+        Page<AlarmToUser> alarmToUserPage = alarmToUserService.findAllByUserId(id, request);
+        List<AlarmRecord> alarmRecordList = alarmToUserPage.getContent().stream().map(e -> alarmRecordService.findById(e.getAlarmRecordId())).collect(Collectors.toList());
+        return ServerResponse.success(alarmRecordList);
     }
 }
