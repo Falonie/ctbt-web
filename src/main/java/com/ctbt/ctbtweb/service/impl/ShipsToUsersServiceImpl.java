@@ -1,6 +1,7 @@
 package com.ctbt.ctbtweb.service.impl;
 
 import com.ctbt.ctbtweb.dao.ShipsToUsersDao;
+import com.ctbt.ctbtweb.entity.Ships;
 import com.ctbt.ctbtweb.entity.ShipsToUsers;
 import com.ctbt.ctbtweb.service.ShipsToUsersService;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,12 @@ public class ShipsToUsersServiceImpl implements ShipsToUsersService {
     @Override
     public ShipsToUsers findByUserIdAndShipId(int userId, int shipId) {
         return shipsToUsersDao.findByUserIdAndShipId(userId, shipId);
+    }
+
+    @Override
+    public Page<ShipsToUsers> findByUserIdAndShipIdLike(int userId, int shipId, Pageable pageable) {
+        Page<ShipsToUsers> shipsToUsersPage = shipsToUsersDao.findByUserIdAndShipIdLike(userId, shipId, pageable);
+        return new PageImpl<ShipsToUsers>(shipsToUsersPage.getContent(), pageable, shipsToUsersPage.getTotalElements());
     }
 
     @Override

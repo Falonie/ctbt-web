@@ -59,4 +59,11 @@ public class ShipsToUsersServiceImplTest {
         shipsToUsersService.delete(shipsToUsers);
         assertNull(shipsToUsersService.findByUserIdAndShipId(856, 1774105));
     }
+
+    @Test
+    public void findByUserIdAndShipIdLike() {
+        PageRequest request = PageRequest.of(0, 10);
+        Page<ShipsToUsers> shipsToUsersPage = shipsToUsersService.findByUserIdAndShipIdLike(856,76, request);
+        assertNotEquals(0, shipsToUsersPage.getTotalElements());
+    }
 }

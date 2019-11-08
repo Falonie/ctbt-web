@@ -54,7 +54,7 @@ public class UserController {
         ServerResponse<User> response = userService.login(username, password);
         if (response.getCode() == 200) {
             session.setAttribute(Constant.CURRENT_USER, response.getData());
-            System.out.println("*********" + response.getData() + "*********");
+//            System.out.println("*********" + response.getData() + "*********");
         }
         return response;
     }
@@ -79,7 +79,8 @@ public class UserController {
     }
 
     @PutMapping("/changePassword")
-    public ServerResponse resetPassword(@RequestParam("id") int id, @Valid ResetPasswordForm passwordForm, BindingResult bindingResult, HttpSession session) {
+    public ServerResponse resetPassword(@RequestParam("id") int id, @Valid ResetPasswordForm passwordForm,
+                                        BindingResult bindingResult, HttpSession session) {
 //        User user = (User) session.getAttribute(Constant.CURRENT_USER);
 //        if (user == null) {
 //            return ServerResponse.failByMsg("请先登录");
@@ -95,7 +96,8 @@ public class UserController {
     }
 
     @PutMapping("/editProfile")
-    public ServerResponse editProfile(@RequestParam("id") int id, @Valid EditUserForm editUserForm, BindingResult bindingResult, HttpSession session) {
+    public ServerResponse editProfile(@RequestParam("id") int id, @Valid EditUserForm editUserForm,
+                                      BindingResult bindingResult, HttpSession session) {
 //        User user = (User) session.getAttribute(Constant.CURRENT_USER);
 //        if (user == null) {
 //            return ServerResponse.failByMsg("请先登录");

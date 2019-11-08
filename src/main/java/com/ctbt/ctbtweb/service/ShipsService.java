@@ -45,6 +45,12 @@ public interface ShipsService {
             int userId, int loginUserId, String shipName, Pageable pageable
     );
 
+    Page<Ships> findBindedShipsByProductId(String productId, int userId, Pageable pageable);
+
+    Page<Ships> findBindedShipsByShipName(String shipName, int userId, Pageable pageable);
+
+    Page<Ships> findBindedShipsByEquipmentId(String equipmentId, int userId, Pageable pageable);
+
     void delete(Ships ships);
 
     void addShipToSensitiveArea(Ships ships);

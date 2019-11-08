@@ -302,4 +302,60 @@ public class ShipsController {
         }
     }
 
+    /**
+     * @param page   default 1
+     * @param size   default 10
+     * @param userId 用户ID
+     * @return 该用户已绑定的船舶
+     */
+    @GetMapping("/bindedShips/userId/{userId}")
+    public ServerResponse bindedShips(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                      @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                      @PathVariable("userId") int userId) {
+        User user = userService.findByIdOrUsername(userId, "username");
+        if (user == null) {
+            return ServerResponse.failByMsg("该用户不存在");
+        }
+        PageRequest request = PageRequest.of(page - 1, 10);
+        Page<ShipsToUsers> shipsToUsersPage = shipsToUsersService.findByUserId(user.getId(), request);
+        List<Ships> shipsList = shipsToUsersPage.getContent().stream().map(e -> shipsService.findById(e.getShipId())).collect(Collectors.toList());
+        return ServerResponse.success(shipsList);
+    }
+
+    /**
+     * @param productId 产品ID
+     * @param userId    用户ID
+     * @return 按条件搜索该用户下已绑定的船
+     */
+    @GetMapping("/bindedShips")
+    public ServerResponse searchBindedShipsByProductId(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                       @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                       @RequestParam(value = "productId", defaultValue = "") String productId,
+                                                       @RequestParam(value = "shipName", defaultValue = "") String shipName,
+                                                       @RequestParam(value = "equipmentId", defaultValue = "") String equipmentId,
+                                                       @RequestParam(value = "shipId", defaultValue = "", required = false) String shipId,
+                                                       @RequestParam("userId") int userId) {
+        User user = userService.findByIdOrUsername(userId, "username");
+        if (user == null) {
+            return ServerResponse.failByMsg("该用户不存在");
+        }
+        PageRequest request = PageRequest.of(page - 1, 10);
+        Page<Ships> shipsPage = null;
+        if (!productId.equals("")) {
+            shipsPage = shipsService.findBindedShipsByProductId(productId, userId, request);
+            return ServerResponse.success(shipsPage.getContent());
+        } else if (!shipName.equals("")) {
+            shipsPage = shipsService.findBindedShipsByShipName(shipName, userId, request);
+            return ServerResponse.success(shipsPage.getContent());
+        } else if (!equipmentId.equals("")) {
+            shipsPage = shipsService.findBindedShipsByEquipmentId(equipmentId, userId, request);
+            return ServerResponse.success(shipsPage.getContent());
+        } else if (!shipId.equals("")) {
+            int id = Integer.parseInt(shipId);
+            Page<ShipsToUsers> shipsToUsersPage = shipsToUsersService.findByUserIdAndShipIdLike(userId, id, request);
+            List<Ships> shipsList = shipsToUsersPage.getContent().stream().map(e -> shipsService.findById(e.getShipId())).collect(Collectors.toList());
+            return ServerResponse.success(shipsList);
+        }
+        return ServerResponse.failByMsg("请选择条件");
+    }
 }

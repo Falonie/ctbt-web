@@ -95,6 +95,24 @@ public class ShipsServiceImpl implements ShipsService {
     }
 
     @Override
+    public Page<Ships> findBindedShipsByProductId(String productId, int userId, Pageable pageable) {
+        Page<Ships> shipsPage = shipsDao.findBindedShipsByProductId(productId, userId, pageable);
+        return new PageImpl<Ships>(shipsPage.getContent(), pageable, shipsPage.getTotalElements());
+    }
+
+    @Override
+    public Page<Ships> findBindedShipsByShipName(String shipName, int userId, Pageable pageable) {
+        Page<Ships> shipsPage = shipsDao.findBindedShipsByShipName(shipName, userId, pageable);
+        return new PageImpl<Ships>(shipsPage.getContent(), pageable, shipsPage.getTotalElements());
+    }
+
+    @Override
+    public Page<Ships> findBindedShipsByEquipmentId(String equipmentId, int userId, Pageable pageable) {
+        Page<Ships> shipsPage = shipsDao.findBindedShipsByEquipmentId(equipmentId, userId, pageable);
+        return new PageImpl<Ships>(shipsPage.getContent(), pageable, shipsPage.getTotalElements());
+    }
+
+    @Override
     public void delete(Ships ships) {
         shipsDao.delete(ships);
     }

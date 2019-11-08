@@ -43,7 +43,7 @@ public interface ShipsDao extends JpaRepository<Ships, Integer> {
     );
 
     @Query(value = "select * from SHIPS_TABLE where (ID not in (select SHIPID from SHIPSTOUSERS_TABLE where USERID=:userId)" +
-            " and ID in (select SHIPID from SHIPSTOUSERS_TABLE where USERID=:loginUserId))"+
+            " and ID in (select SHIPID from SHIPSTOUSERS_TABLE where USERID=:loginUserId))" +
             " and (PRODUCTID like %:productId%)"
             , nativeQuery = true)
     Page<Ships> findByProductIdAndUserIdAndLoginUserId(
@@ -51,7 +51,7 @@ public interface ShipsDao extends JpaRepository<Ships, Integer> {
     );
 
     @Query(value = "select * from SHIPS_TABLE s where (s.ID not in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:userId)" +
-            " and s.ID in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:loginUserId))"+
+            " and s.ID in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:loginUserId))" +
             " and (s.MMSI like %:mmsi%)"
             , nativeQuery = true)
     Page<Ships> findByMmsiIdAndUserIdAndLoginUserId(
@@ -59,10 +59,22 @@ public interface ShipsDao extends JpaRepository<Ships, Integer> {
     );
 
     @Query(value = "select * from SHIPS_TABLE s where (s.ID not in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:userId)" +
-            " and s.ID in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:loginUserId))"+
+            " and s.ID in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:loginUserId))" +
             " and (s.NAME like %:shipName%)"
             , nativeQuery = true)
     Page<Ships> findByNameAndUserIdAndLoginUserId(
             int userId, int loginUserId, String shipName, Pageable pageable
     );
+
+    @Query(value = "select * from SHIPS_TABLE s where s.PRODUCTID like %:productId% and " +
+            "s.ID in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:userId)", nativeQuery = true)
+    Page<Ships> findBindedShipsByProductId(String productId, int userId, Pageable pageable);
+
+    @Query(value = "select * from SHIPS_TABLE s where s.NAME like %:shipName% and " +
+            "s.ID in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:userId)", nativeQuery = true)
+    Page<Ships> findBindedShipsByShipName(String shipName, int userId, Pageable pageable);
+
+    @Query(value = "select * from SHIPS_TABLE s where s.EQUIPMENTID like %:equipmentId% and " +
+            "s.ID in (select su.SHIPID from SHIPSTOUSERS_TABLE su where su.USERID=:userId)", nativeQuery = true)
+    Page<Ships> findBindedShipsByEquipmentId(String equipmentId, int userId, Pageable pageable);
 }

@@ -131,4 +131,10 @@ public class ShipsServiceImplTest {
                 "浙", "舟", "普", 122, request);
         assertNotEquals(0, shipsPage2.getTotalElements());
     }
+
+    @Test
+    public void findBindedShipsByEquipmentId() {
+        PageRequest request = PageRequest.of(499, 10);
+//        Page<Ships> shipsPage2 = shipsService.findBindedShipsByEquipmentId()
+    }
 }

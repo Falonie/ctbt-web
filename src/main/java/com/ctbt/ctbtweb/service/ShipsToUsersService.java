@@ -11,7 +11,9 @@ public interface ShipsToUsersService {
 
     List<ShipsToUsers> findByShipId(int shipId);
 
-    ShipsToUsers findByUserIdAndShipId(int userId,int shipId);
+    ShipsToUsers findByUserIdAndShipId(int userId, int shipId);
+
+    Page<ShipsToUsers> findByUserIdAndShipIdLike(int userId, int shipId, Pageable pageable);
 
     ShipsToUsers save(ShipsToUsers shipsToUsers);
 
