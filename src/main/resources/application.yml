@@ -3,16 +3,9 @@ spring:
     active: dev
   jpa:
     open-in-view: true
-    show-sql: true
+    show-sql: false
 #    hibernate:
 #      use-new-id-generator-mappings: false
   devtools:
     restart:
       enabled: true
-
-#spring:
-#  datasource:
-#    url: jdbc:oracle:thin:@192.168.1.6:1521:orcl
-#    username: NewCTBT
-#    password: newctbt
-#    driver-class-name: oracle.jdbc.driver.OracleDriver

@@ -1,5 +1,6 @@
 package com.ctbt.ctbtweb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 //@Data
 @Getter
 @Setter
-@ToString
+//@ToString
 public class ShipsDevice {
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,6 +40,7 @@ public class ShipsDevice {
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
     @JoinColumn(name = "SHIPS_ID", referencedColumnName = "ID")
+    @JsonIgnore
     private Ships ships;
 
     public ShipsDevice() {

@@ -1,16 +1,17 @@
-package com.ctbt.ctbtweb.forms;
+package com.ctbt.ctbtweb.vo;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
-@ToString
-public class ShipForm {
+public class ShipsVO {
+    private int id;
+
     private String nation;
 
     private String province;
@@ -19,7 +20,6 @@ public class ShipForm {
 
     private String county;
 
-    @NotEmpty(message = "船名不能为空")
     private String name;
 
     private String byName;
@@ -28,7 +28,6 @@ public class ShipForm {
 
     private String callSign;
 
-//    @NotEmpty(message = "MMSI不能为空")
     private String mmsi;
 
     private String imo;
@@ -65,31 +64,40 @@ public class ShipForm {
 
     private String positionType;
 
-    @NotEmpty(message = "示位仪卡号不能为空")
     private String equipmentId;
 
-    //    产品Id
+//    产品Id
     private String productId;
 
-    private String isUnpower;//是否无动力船舶
+//    是否无动力船舶
+    private String isUnpower;
 
-    private double unpowerLongitude;//无动力船舶经度
+//    无动力船舶经度
+    private double unpowerLongitude;
 
-    private double unpowerLatitude;//无动力船舶纬度
+//    无动力船舶纬度
+    private double unpowerLatitude;
 
-    private double radius;//无动力船舶半径
+//    无动力船舶半径
+    private double radius;
 
-    private String isUnPowerView;//表示是否利用显示
+//    表示是否利用显示
+    private String isUnPowerView;
 
-    private String owner;//表示船主
+//    船主
+    private String owner;
 
-    private String phoneNumber;//表示船主联系方式
+//    船主联系方式
+    private String phoneNumber;
 
-    private double tons;//表示吨位
+//    表示吨位
+    private double tons;
 
-    private String isNeedAlarm;    //30分钟未上报是否报警
+//    30分钟未上报是否报警
+    private String isNeedAlarm;
 
-    private String classify;    //船只
+//    船只
+    private String classify;
 
     private String imageFileName;
 
@@ -100,4 +108,5 @@ public class ShipForm {
     private Integer standardShipType;
 
     private Integer cardNo;
+
 }

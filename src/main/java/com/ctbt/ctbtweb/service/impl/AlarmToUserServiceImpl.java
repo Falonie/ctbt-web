@@ -9,11 +9,39 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Optional;
 
 @Service("alarmToUserService")
 public class AlarmToUserServiceImpl implements AlarmToUserService {
     @Resource
     private AlarmToUserDao alarmToUserDao;
+
+    @Override
+    public AlarmToUser save(AlarmToUser alarmToUser) {
+        return alarmToUserDao.save(alarmToUser);
+    }
+
+    @Override
+    public AlarmToUser findById(int id) {
+        Optional<AlarmToUser> alarmToUser = alarmToUserDao.findById(id);
+        return alarmToUser.orElse(null);
+    }
+
+    @Override
+    public AlarmToUser findByAlarmRecordId(int alarmRecordId) {
+        return alarmToUserDao.findByAlarmRecordId(alarmRecordId);
+    }
+
+    @Override
+    public List<AlarmToUser> findAllByAlarmRecordId(int alarmRecordId) {
+        return alarmToUserDao.findAllByAlarmRecordId(alarmRecordId);
+    }
+
+    @Override
+    public void delete(AlarmToUser alarmToUser) {
+        alarmToUserDao.delete(alarmToUser);
+    }
 
     @Override
     public Page<AlarmToUser> findAllByUserId(int userId, Pageable pageable) {

@@ -1,11 +1,9 @@
 package com.ctbt.ctbtweb.controller;
 
 import com.ctbt.ctbtweb.common.Constant;
+import com.ctbt.ctbtweb.common.ConstantEnum;
 import com.ctbt.ctbtweb.common.ServerResponse;
-import com.ctbt.ctbtweb.entity.Ships;
-import com.ctbt.ctbtweb.entity.ShipsDevice;
-import com.ctbt.ctbtweb.entity.ShipsToUsers;
-import com.ctbt.ctbtweb.entity.User;
+import com.ctbt.ctbtweb.entity.*;
 import com.ctbt.ctbtweb.forms.ShipForm;
 import com.ctbt.ctbtweb.forms.ShipSearchForm;
 import com.ctbt.ctbtweb.service.*;
@@ -14,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +36,10 @@ public class ShipsController {
     private ShipsToUsersService shipsToUsersService;
     @Resource
     private ShipsDeviceService shipsDeviceService;
+    @Resource
+    private AlarmRecordService alarmRecordService;
+    @Resource
+    private AlarmToUserService alarmToUserService;
     @Resource
     private LogService logService;
 
@@ -160,12 +163,12 @@ public class ShipsController {
 
     @PostMapping("/addShip")
     public ServerResponse addShip(@Valid ShipForm shipForm, BindingResult bindingResult, HttpSession session,
-                                  @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+                                  @RequestParam(value = "id", required = false, defaultValue = "0") int userId) {
 //        User user = (User) session.getAttribute(Constant.CURRENT_USER);
 //        if (user == null) {
 //            return ServerResponse.failByMsg("请先登录");
 //        }
-        User user = userService.findById(id);
+        User user = userService.findById(userId);
         if (user == null) {
             return ServerResponse.failByMsg("该用户不存在");
         }
@@ -180,10 +183,13 @@ public class ShipsController {
             return ServerResponse.failByMsg("该船舶已存在");
         }
         BeanUtils.copyProperties(shipForm, ships);
-        ShipsToUsers shipsToUsers = new ShipsToUsers();
-        shipsToUsers.setUserId(id);
         Ships result = shipsService.save(ships);
-        shipsToUsers.setShipId(result.getId());
+
+        if (userId != ConstantEnum.ADMIN_USER.getUserId()) {
+            ShipsToUsers shipsToUsers2 = new ShipsToUsers(result.getId(), userId);
+            shipsToUsersService.save(shipsToUsers2);
+        }
+        ShipsToUsers shipsToUsers = new ShipsToUsers(result.getId(), ConstantEnum.ADMIN_USER.getUserId());
         shipsToUsersService.save(shipsToUsers);
         return ServerResponse.success("添加成功", result);
     }
@@ -240,6 +246,21 @@ public class ShipsController {
                 shipsToUsersList.forEach(e -> shipsToUsersService.delete(e));
             }
 //            shipsToUsersService.delete(shipsToUsers);
+            List<AlarmRecord> alarmRecordList = alarmRecordService.findByShipId(ship);
+
+            if (!CollectionUtils.isEmpty(alarmRecordList)) {
+                alarmRecordList.forEach(alarmRecord -> alarmRecordService.delete(alarmRecord));
+/*
+                alarmRecordList.forEach(alarmRecord -> {
+                    List<AlarmToUser> alarmToUserList = alarmToUserService.findAllByAlarmRecordId(alarmRecord.getAlarmRecordId());
+                    if (!CollectionUtils.isEmpty(alarmToUserList)) {
+                        alarmToUserList.forEach(alarmToUser -> alarmToUserService.delete(alarmToUser));
+                    }
+                    alarmRecordService.delete(alarmRecord);
+                });
+*/
+            }
+
             shipsService.delete(ship);
             return ServerResponse.successByMsg("删除成功");
         } catch (Exception e) {
@@ -266,17 +287,19 @@ public class ShipsController {
         return ServerResponse.success("添加成功", result);
     }
 
-//    @PostMapping("/bindShipToUser")
-//    public ServerResponse bindShipToUser(@RequestBody BindShipRequest bindShipRequest,
-//                                         @RequestParam("userId") int userId) {
-//        Ships ships = shipsService.findById(shipId);
-//        if (ships == null) {
-//            return ServerResponse.failByMsg("该船舶不存在");
-//        }
-//        ShipsToUsers shipsToUsers = new ShipsToUsers(shipId, userId, new Date());
-//        ShipsToUsers result = shipsToUsersService.save(shipsToUsers);
-//        return ServerResponse.success("添加成功", result);
-//    }
+/*
+    @PostMapping("/bindShipToUser")
+    public ServerResponse bindShipToUser(@RequestBody BindShipRequest bindShipRequest,
+                                         @RequestParam("userId") int userId) {
+        Ships ships = shipsService.findById(shipId);
+        if (ships == null) {
+            return ServerResponse.failByMsg("该船舶不存在");
+        }
+        ShipsToUsers shipsToUsers = new ShipsToUsers(shipId, userId, new Date());
+        ShipsToUsers result = shipsToUsersService.save(shipsToUsers);
+        return ServerResponse.success("添加成功", result);
+    }
+*/
 
     /**
      * 解绑船舶与用户的关系

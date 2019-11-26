@@ -11,6 +11,7 @@ import java.util.Date;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class ShipsToUsers {
 	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +30,11 @@ public class ShipsToUsers {
 
     @Column(name = "UPDATEEQUIPMENTIDDATE")
 	private Date updateEquipmentIdDate; //最新修改卡号的时间
+
+	public ShipsToUsers(int shipId, int userId) {
+		this.shipId = shipId;
+		this.userId = userId;
+	}
 
 	public ShipsToUsers(int shipId, int userId, Date updateEquipmentIdDate) {
 		this.shipId = shipId;

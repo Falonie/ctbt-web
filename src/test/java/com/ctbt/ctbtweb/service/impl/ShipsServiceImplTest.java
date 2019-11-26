@@ -36,14 +36,16 @@ public class ShipsServiceImplTest {
     private ShipsToUsersService shipsToUsersService;
 
     @Test
-    @Transactional
+//    @Transactional
     public void save() {
         Ships ships = new Ships();
 //        ships.setId(1111111111);
-        ships.setName("falonieShip10");
+        ships.setName("falonieShip2");
 //        ships.setNumber("falonieShip");
 //        ships.setName("testShip");
 //        ships.setNumber("testShip");
+        ships.setProductId("AC0004");
+        ships.setEquipmentId("22222224");
         ships.setMmsi("10000");
         ships.setShipType("123");
         ships.setCallSign("9VJJ7");
@@ -63,7 +65,7 @@ public class ShipsServiceImplTest {
 //        ships.setSensitiveAreaList(alarmAreaList);
 
         User user = userService.findById(856);
-        System.out.println("****user******"+user);
+        System.out.println("****user******" + user);
         List<User> userList = new ArrayList<>();
         userList.add(user);
         ships.setUserList(userList);

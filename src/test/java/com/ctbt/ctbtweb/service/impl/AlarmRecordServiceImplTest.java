@@ -26,7 +26,7 @@ public class AlarmRecordServiceImplTest extends CtbtWebApplicationTests {
 //    @Transactional
     public void save() {
         AlarmRecord alarmRecord = new AlarmRecord();
-        Ships ships = shipsService.findById(1774531);
+        Ships ships = shipsService.findById(1774657);
         alarmRecord.setShips(ships);
         alarmRecord.setDeviceId(ships.getEquipmentId());
         alarmRecord.setEquipmentId(ships.getEquipmentId());

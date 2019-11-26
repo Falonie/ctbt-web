@@ -15,7 +15,7 @@ import java.util.List;
 //@Data
 @Getter
 @Setter
-@ToString
+//@ToString
 @NoArgsConstructor
 public class User {
 
