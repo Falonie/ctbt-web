@@ -4,7 +4,7 @@ public enum ResultEnum {
     SUCCESS(200, "成功"),
     ORDER_DELETE_SUCCESS(200, "订单删除成功"),
     ORDER_CANCEL_SUCCESS(200, "订单取消成功"),
-    PRODUCT_NOT_EXIST(10, "商品不存在"),
+    SHIPTEAM_NOT_EXIST(10, "船舶编组不存在"),
     PRODUCT_STOCK_ERROR(11, "商品库存不足"),
     ORDER_NOT_EXIST(12, "订单不存在"),
     ORDERDETAIL_NOT_EXIST(13, "订单详情不存在"),

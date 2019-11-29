@@ -18,14 +18,16 @@ public class ShipTypeController {
     @Resource
     private ShipTypeService shipTypeService;
 
-//    @GetMapping("/shipType")
-//    public ServerResponse shipType(@RequestParam(value = "id") int id) {
-//        ShipType shipType = shipTypeService.findById(id);
-//        if (shipType == null) {
-//            return ServerResponse.failByMsg("无此船舶类型");
-//        }
-//        return ServerResponse.success(shipType);
-//    }
+/*
+    @GetMapping("/shipType")
+    public ServerResponse shipType(@RequestParam(value = "id") int id) {
+        ShipType shipType = shipTypeService.findById(id);
+        if (shipType == null) {
+            return ServerResponse.failByMsg("无此船舶类型");
+        }
+        return ServerResponse.success(shipType);
+    }
+*/
 
     @GetMapping("/shipType")
     public ServerResponse shipType(@RequestParam(value = "id", defaultValue = "0") int id,
