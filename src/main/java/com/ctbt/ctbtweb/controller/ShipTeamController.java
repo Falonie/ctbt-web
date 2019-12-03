@@ -48,6 +48,18 @@ public class ShipTeamController {
         return ServerResponse.success(shipTeam);
     }
 
+    @PutMapping("/editShipTeam")
+    public ServerResponse editShipTeam(@Valid ShipTeamForm shipTeamForm, BindingResult bindingResult,
+                                       @RequestParam(value = "shipTeamId") int shipTeamId) {
+        if (bindingResult.hasErrors()) {
+            return ServerResponse.failByMsg(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+        }
+        ShipTeam shipTeam = shipTeamService.findById(shipTeamId);
+        ShipTeam result = shipTeamService.save(shipTeamForm.getTeamLeaderShipId(), shipTeam.getTeamName(),
+                shipTeam.getSafeDistance());
+        return ServerResponse.success(result);
+    }
+
     @DeleteMapping("/delete/id/{id}")
     public ServerResponse deleteShipTeam(@PathVariable(value = "id") int teamId) {
         ShipTeam shipTeam = shipTeamService.findById(teamId);
