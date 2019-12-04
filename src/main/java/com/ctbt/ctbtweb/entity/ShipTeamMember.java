@@ -2,6 +2,7 @@ package com.ctbt.ctbtweb.entity;
 
 import lombok.*;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -13,7 +14,8 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShipTeamMember {
-	private int shipId;
-	private int teamId;
-	private String workStatus;
+    @EmbeddedId
+    private ShipTeamMemberId shipTeamMemberId;
+
+    private String workStatus;
 }
