@@ -35,7 +35,6 @@ public class City {
     private List<County> countyList;
 
     public City(int id) {
-        super();
         this.id = id;
     }
 }

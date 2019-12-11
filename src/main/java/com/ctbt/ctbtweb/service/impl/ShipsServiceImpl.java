@@ -46,6 +46,11 @@ public class ShipsServiceImpl implements ShipsService {
     }
 
     @Override
+    public Ships findByProductId(String productId) {
+        return shipsDao.findByProductId(productId);
+    }
+
+    @Override
     public Page<Ships> findAll(Pageable pageable) {
         Page<Ships> shipsPage = shipsDao.findAll(pageable);
         return new PageImpl<Ships>(shipsPage.getContent(), pageable, shipsPage.getTotalElements());

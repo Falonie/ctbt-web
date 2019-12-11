@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Getter
@@ -68,7 +69,9 @@ public class ShipForm {
     @NotEmpty(message = "示位仪卡号不能为空")
     private String equipmentId;
 
-    //    产品Id
+//    产品Id
+    @NotEmpty(message = "产品ID不能为空")
+    @Pattern(regexp = "[A-Z]{2}\\d{4}", message = "产品ID长度应为6位，且前两位为大写字母，后4位为数字")
     private String productId;
 
     private String isUnpower;//是否无动力船舶

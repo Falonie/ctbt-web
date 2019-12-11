@@ -19,6 +19,8 @@ public interface ShipsDao extends JpaRepository<Ships, Integer> {
 
     Ships findByEquipmentId(String equipmentId);
 
+    Ships findByProductId(String productId);
+
     Page<Ships> findByEquipmentIdOrMmsi(String equipmentId, String mmsi, Pageable pageable);
 
     Page<Ships> findByNationLikeOrProvinceLikeOrCityLike(String nation, String province, String city, Pageable pageable);

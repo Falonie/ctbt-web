@@ -35,11 +35,7 @@ public class ShipsController {
     @Resource
     private ShipsToUsersService shipsToUsersService;
     @Resource
-    private ShipsDeviceService shipsDeviceService;
-    @Resource
     private AlarmRecordService alarmRecordService;
-    @Resource
-    private AlarmToUserService alarmToUserService;
     @Resource
     private LogService logService;
 
@@ -181,6 +177,9 @@ public class ShipsController {
         }
         if (shipsService.findByName(shipForm.getName()) != null) {
             return ServerResponse.failByMsg("该船舶已存在");
+        }
+        if (shipsService.findByProductId(shipForm.getProductId()) != null) {
+            return ServerResponse.failByMsg("该产品ID已存在");
         }
         BeanUtils.copyProperties(shipForm, ships);
         Ships result = shipsService.save(ships);

@@ -82,7 +82,7 @@ public class ShipsServiceImplTest {
 
     @Test
     public void findById() {
-        Ships ships = shipsService.findById(1754716);
+        Ships ships = shipsService.findById(582587);
         assertNotNull(ships);
     }
 
@@ -99,6 +99,12 @@ public class ShipsServiceImplTest {
 //        Ships ships = shipsService.findByIdOrName(467918, "XXXXXXXXXXXXXXXXXXXXX");
 //        Ships ships = shipsService.findByIdOrName(0, "FalonieShip");
         Ships ships = shipsService.findByIdOrName(0, "浙三渔04502");
+        assertNotNull(ships);
+    }
+
+    @Test
+    public void findByProductId() {
+        Ships ships = shipsService.findByProductId("AC1111");
         assertNotNull(ships);
     }
 
