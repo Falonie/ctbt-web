@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 public class PermissionServiceImpl implements PermissionService {
     @Resource
     private PermissionDao permissionDao;
+
     @Override
     public Permission save(Permission permission) {
         return permissionDao.save(permission);

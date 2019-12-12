@@ -12,4 +12,6 @@ public interface UserRolePermissionDao extends JpaRepository<UserRolePermission,
     List<UserRolePermission> findByUserRolePermissionIdUrId(int urId);
 
     List<UserRolePermission> findByUserRolePermissionIdPermId(int permId);
+
+    List<UserRolePermission> findByUserRolePermissionIdUrIdAndUserRolePermissionIdPermType(int urId, String permType);
 }

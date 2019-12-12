@@ -38,4 +38,9 @@ public class UserRolePermissionServiceImpl implements UserRolePermissionService 
     public List<UserRolePermission> findByUserRolePermissionIdPermId(int permId) {
         return userRolePermissionDao.findByUserRolePermissionIdPermId(permId);
     }
+
+    @Override
+    public List<UserRolePermission> findByUserRolePermissionIdUrIdAndUserRolePermissionIdPermType(int urId, String permType) {
+        return userRolePermissionDao.findByUserRolePermissionIdUrIdAndUserRolePermissionIdPermType(urId, permType);
+    }
 }

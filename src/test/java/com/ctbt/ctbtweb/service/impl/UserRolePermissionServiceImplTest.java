@@ -50,4 +50,11 @@ public class UserRolePermissionServiceImplTest {
     @Test
     public void findByUserRolePermissionIdPermId() {
     }
+
+    @Test
+    public void findByUserRolePermissionIdUrIdAndUserRolePermissionIdPermType() {
+        List<UserRolePermission> userRolePermissionList = userRolePermissionService.
+                findByUserRolePermissionIdUrIdAndUserRolePermissionIdPermType(1512, "2");
+        assertNotEquals(0, userRolePermissionList.size());
+    }
 }
