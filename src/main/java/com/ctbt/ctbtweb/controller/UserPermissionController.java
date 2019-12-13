@@ -1,9 +1,11 @@
 package com.ctbt.ctbtweb.controller;
 
 import com.ctbt.ctbtweb.common.ServerResponse;
+import com.ctbt.ctbtweb.entity.UserRolePermission;
+import com.ctbt.ctbtweb.entity.UserRolePermissionId;
 import com.ctbt.ctbtweb.service.PermissionService;
 import com.ctbt.ctbtweb.service.UserRolePermissionService;
-import com.ctbt.ctbtweb.vo.UserRolePermissionVO;
+import com.ctbt.ctbtweb.vo.PermissionVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,7 @@ public class UserPermissionController {
     private PermissionService permissionService;
 
     /**
-     * @param userId         用户ID
+     * @param userId         用户ID或角色ID
      * @param permissionType 用户或角色类型
      * @return 该用户的权限
      */
@@ -34,15 +36,33 @@ public class UserPermissionController {
                                               @PathVariable("permissionType") String permissionType) {
 //        List<UserRolePermission> userRolePermissionList = userRolePermissionService.
 //                findByUserRolePermissionIdUrIdAndUserRolePermissionIdPermType(userId, permissionType);
-        List<UserRolePermissionVO> permissionList = userRolePermissionService
+
+/*        List<PermissionVO> permissionList = userRolePermissionService
                 .findByUserRolePermissionIdUrIdAndUserRolePermissionIdPermType(userId, permissionType)
                 .stream().map(UserRolePermission -> {
-                    UserRolePermissionVO userRolePermissionVO = new UserRolePermissionVO();
+                    PermissionVO permissionVO = new PermissionVO();
                     BeanUtils.copyProperties(permissionService
-                            .findByPermId(UserRolePermission.getUserRolePermissionId().getPermId()), userRolePermissionVO);
-                    return userRolePermissionVO;
+                            .findByPermId(UserRolePermission.getUserRolePermissionId().getPermId()), permissionVO);
+                    return permissionVO;
+                })
+                .collect(Collectors.toList());*/
+
+        List<Integer> permissionIdList = userRolePermissionService
+                .findByUserRolePermissionIdUrIdAndUserRolePermissionIdPermType(userId, permissionType)
+                .stream().map(UserRolePermission::getUserRolePermissionId)
+                .map(UserRolePermissionId::getPermId)
+                .collect(Collectors.toList());
+
+//        List<Permission> permissionList2 = permissionService.findByPermIdIn(permissionIdList);
+
+        List<PermissionVO> permissionVOList = permissionService
+                .findByPermIdIn(permissionIdList).stream()
+                .map(Permission -> {
+                    PermissionVO permissionVO = new PermissionVO();
+                    BeanUtils.copyProperties(Permission, permissionVO);
+                    return permissionVO;
                 })
                 .collect(Collectors.toList());
-        return ServerResponse.success(permissionList);
+        return ServerResponse.success(permissionVOList);
     }
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRolePermissionVO {
+public class PermissionVO {
     private int permId;
     private int parentId;
     private int permLevel;

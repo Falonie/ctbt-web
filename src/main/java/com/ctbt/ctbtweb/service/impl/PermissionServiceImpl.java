@@ -6,6 +6,7 @@ import com.ctbt.ctbtweb.service.PermissionService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("permissionService")
 public class PermissionServiceImpl implements PermissionService {
@@ -20,6 +21,11 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public Permission findByPermId(int permId) {
         return permissionDao.findByPermId(permId);
+    }
+
+    @Override
+    public List<Permission> findByPermIdIn(List<Integer> permIdList) {
+        return permissionDao.findByPermIdIn(permIdList);
     }
 
     @Override
