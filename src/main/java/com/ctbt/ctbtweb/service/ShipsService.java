@@ -4,12 +4,16 @@ import com.ctbt.ctbtweb.entity.Ships;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface ShipsService {
     Ships save(Ships ships);
 
     Ships update(Ships ships);
 
     Ships findById(int id);
+
+    List<Ships> findByIdIn(List<Integer> shipIdList);
 
     Ships findByName(String shipName);
 

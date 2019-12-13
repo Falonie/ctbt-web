@@ -340,8 +340,12 @@ public class ShipsController {
         }
         PageRequest request = PageRequest.of(page - 1, 10);
         Page<ShipsToUsers> shipsToUsersPage = shipsToUsersService.findByUserId(user.getId(), request);
-        List<Ships> shipsList = shipsToUsersPage.getContent().stream().map(e -> shipsService.findById(e.getShipId())).collect(Collectors.toList());
-        return ServerResponse.success(shipsList);
+//        List<Ships> shipsList = shipsToUsersPage.getContent().stream().map(e -> shipsService.findById(e.getShipId())).collect(Collectors.toList());
+
+        List<Integer> shipIdList = shipsToUsersPage.getContent().stream().map(ShipsToUsers::getShipId)
+                .collect(Collectors.toList());
+        List<Ships> shipsList2 = shipsService.findByIdIn(shipIdList);
+        return ServerResponse.success(shipsList2);
     }
 
     /**
@@ -375,8 +379,12 @@ public class ShipsController {
         } else if (!shipId.equals("")) {
             int id = Integer.parseInt(shipId);
             Page<ShipsToUsers> shipsToUsersPage = shipsToUsersService.findByUserIdAndShipIdLike(userId, id, request);
-            List<Ships> shipsList = shipsToUsersPage.getContent().stream().map(e -> shipsService.findById(e.getShipId())).collect(Collectors.toList());
-            return ServerResponse.success(shipsList);
+//            List<Ships> shipsList = shipsToUsersPage.getContent().stream().map(e -> shipsService.findById(e.getShipId())).collect(Collectors.toList());
+
+            List<Integer> shipIdList = shipsToUsersPage.getContent().stream().map(ShipsToUsers::getShipId)
+                    .collect(Collectors.toList());
+            List<Ships> shipsList2 = shipsService.findByIdIn(shipIdList);
+            return ServerResponse.success(shipsList2);
         }
         return ServerResponse.failByMsg("请选择条件");
     }

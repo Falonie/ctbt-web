@@ -6,8 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface ShipsDao extends JpaRepository<Ships, Integer> {
     Ships findById(int id);
+
+    List<Ships> findByIdIn(List<Integer> shipIdList);
 
     Ships findByName(String shipName);
 

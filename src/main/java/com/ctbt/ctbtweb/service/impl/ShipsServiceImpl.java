@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("shipsService")
 public class ShipsServiceImpl implements ShipsService {
@@ -28,6 +29,11 @@ public class ShipsServiceImpl implements ShipsService {
     @Override
     public Ships findById(int id) {
         return shipsDao.findById(id);
+    }
+
+    @Override
+    public List<Ships> findByIdIn(List<Integer> shipIdList) {
+        return shipsDao.findByIdIn(shipIdList);
     }
 
     @Override
