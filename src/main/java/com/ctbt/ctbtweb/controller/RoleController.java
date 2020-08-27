@@ -99,8 +99,11 @@ public class RoleController {
             return ServerResponse.failByMsg("该角色不存在");
         }
         List<RoleToUser> roleToUserList = roleToUserService.findAllByRoleId(3);
-        List<User> userList = roleToUserList.stream().map(e -> userService.findById(e.getUserId())).collect(Collectors.toList());
-        return ServerResponse.success(userList);
+//        List<User> userList = roleToUserList.stream().map(e -> userService.findById(e.getUserId())).collect(Collectors.toList());
+
+        List<Integer> userIdList = roleToUserList.stream().map(RoleToUser::getUserId).collect(Collectors.toList());
+        List<User> userList2 = userService.findByIdIn(userIdList);
+        return ServerResponse.success(userList2);
     }
 
     /**

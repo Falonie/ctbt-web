@@ -10,6 +10,8 @@ public interface AlarmRecordService {
 
     AlarmRecord findById(int alarmRecordId);
 
+    List<AlarmRecord> findByAlarmRecordIdIn(List<Integer> alarmRecordIdList);
+
     List<AlarmRecord> findByShipId(Ships ship);
 
     void delete(AlarmRecord alarmRecord);

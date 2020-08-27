@@ -78,7 +78,7 @@ public class AlarmAreaController {
         return ServerResponse.success("绑定成功", result);
     }
 
-    @GetMapping("/listShiptoAlarmArea")
+    @GetMapping("/listShipToAlarmArea")
     public ServerResponse listShipToAlarmArea(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                               @RequestParam(value = "size", defaultValue = "10") Integer size) {
         PageRequest request = PageRequest.of(page - 1, 20);

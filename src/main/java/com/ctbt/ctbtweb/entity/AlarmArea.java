@@ -16,11 +16,12 @@ import java.util.List;
 @Table(name = "CONTROLAREA_TABLE")
 @Getter
 @Setter
-//@ToString
+@ToString
 public class AlarmArea {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "areaAlarm")
+//    @SequenceGenerator(name = "areaAlarm", sequenceName = "areaAlarmSeq", allocationSize = 1)
     @Column(name = "AREA_ID")
     private Integer areaId;
 
@@ -41,6 +42,18 @@ public class AlarmArea {
 
     @Column(name = "GEOMETRY")
     private String geometry;
+
+    @Column(name = "AREA_ALARM_TYPE")
+    private String areaAlarmType;
+
+    @Column(name = "AREA_TYPE")
+    private String areaType;
+
+    @Column(name = "AREA_FUNC")
+    private String areaFunc;
+
+    @Column(name = "VALIDITY")
+    private String validity;
 
 //    @ManyToMany(mappedBy = "sensitiveAreaList")
 //    @JsonIgnore

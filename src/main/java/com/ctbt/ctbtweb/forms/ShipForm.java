@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Getter
@@ -29,7 +30,6 @@ public class ShipForm {
 
     private String callSign;
 
-//    @NotEmpty(message = "MMSI不能为空")
     private String mmsi;
 
     private String imo;
@@ -71,6 +71,7 @@ public class ShipForm {
 
 //    产品Id
     @NotEmpty(message = "产品ID不能为空")
+    @Size(min = 6, max = 6, message = "产品ID长度应为6位")
     @Pattern(regexp = "[A-Z]{2}\\d{4}", message = "产品ID长度应为6位，且前两位为大写字母，后4位为数字")
     private String productId;
 

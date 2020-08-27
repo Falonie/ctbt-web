@@ -10,4 +10,6 @@ public interface AlarmRecordDao extends JpaRepository<AlarmRecord, Integer> {
     AlarmRecord findByAlarmRecordId(int alarmRecordId);
 
     List<AlarmRecord> findAllByShips(Ships ships);
+
+    List<AlarmRecord> findByAlarmRecordIdIn(List<Integer> alarmRecordIdList);
 }

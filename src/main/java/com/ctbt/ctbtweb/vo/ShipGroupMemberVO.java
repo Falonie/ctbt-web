@@ -1,6 +1,5 @@
 package com.ctbt.ctbtweb.vo;
 
-import com.ctbt.ctbtweb.entity.Ships;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

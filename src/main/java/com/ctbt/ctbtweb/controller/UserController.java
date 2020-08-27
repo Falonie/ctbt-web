@@ -165,8 +165,12 @@ public class UserController {
         }
         PageRequest request = PageRequest.of(page - 1, 10);
         Page<ShipsToUsers> shipsToUsersPage = shipsToUsersService.findByUserId(user.getId(), request);
-        List<Ships> shipsList = shipsToUsersPage.getContent().stream().map(e -> shipsService.findById(e.getShipId())).collect(Collectors.toList());
-        return ServerResponse.success(shipsList);
+//        List<Ships> shipsList = shipsToUsersPage.getContent().stream().map(e -> shipsService.findById(e.getShipId())).collect(Collectors.toList());
+
+        List<Integer> shipIdList = shipsToUsersPage.getContent().stream().map(ShipsToUsers::getShipId)
+                .collect(Collectors.toList());
+        List<Ships> shipsList2 = shipsService.findByIdIn(shipIdList);
+        return ServerResponse.success(shipsList2);
     }
 
 

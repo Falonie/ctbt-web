@@ -6,12 +6,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface UserDao extends JpaRepository<User, Integer> {
     User findByUsername(String name);
 
     User findByUsernameAndPassword(String name, String password);
 
     User findByIdOrUsername(int id, String username);
+
+    List<User> findByIdIn(List<Integer> userIdList);
 
     @Query(value = "select * from USER_TABLE u where u.ID not in (select c.USERID from CTBT_USER_ROLE c where c.ROLEID=:roleId)", nativeQuery = true)
 //    @Query(value = "select * from USER_TABLE u where u.ID not in (select c.USERID from CTBT_USER_ROLE c where c.ROLEID=:roleId)",nativeQuery = false)

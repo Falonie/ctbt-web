@@ -30,6 +30,11 @@ public class AlarmRecordServiceImpl implements AlarmRecordService {
     }
 
     @Override
+    public List<AlarmRecord> findByAlarmRecordIdIn(List<Integer> alarmRecordIdList) {
+        return alarmRecordDao.findByAlarmRecordIdIn(alarmRecordIdList);
+    }
+
+    @Override
     public List<AlarmRecord> findByShipId(Ships ship) {
         return alarmRecordDao.findAllByShips(ship);
     }

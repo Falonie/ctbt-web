@@ -39,4 +39,8 @@ public class AlarmRecordServiceImplTest extends CtbtWebApplicationTests {
     @Test
     public void findById() {
     }
+
+    @Test
+    public void findByAlarmRecordIdIn() {
+    }
 }

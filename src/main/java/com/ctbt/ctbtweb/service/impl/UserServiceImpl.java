@@ -1,5 +1,6 @@
 package com.ctbt.ctbtweb.service.impl;
 
+import com.ctbt.ctbtweb.common.Constant;
 import com.ctbt.ctbtweb.common.ServerResponse;
 import com.ctbt.ctbtweb.dao.UserDao;
 import com.ctbt.ctbtweb.entity.User;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -28,6 +30,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(int id) {
         return userDao.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<User> findByIdIn(List<Integer> userIdList) {
+        return userDao.findByIdIn(userIdList);
     }
 
     @Override
@@ -73,6 +80,7 @@ public class UserServiceImpl implements UserService {
         User user1 = new User();
         user1.setUsername(userForm.getUsername());
         user1.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
+        user1.setType(Constant.NORMAL_USER);
         User result = userDao.save(user1);
         return ServerResponse.success(result);
     }

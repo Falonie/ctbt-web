@@ -36,13 +36,11 @@ public class AlarmController {
     private AlarmRecordService alarmRecordService;
 
     /**
-     * 显示当前用户的警戒区域
-     *
      * @param page
      * @param size
      * @param id
      * @param session
-     * @return
+     * @return 显示当前用户的警戒区域
      */
     @GetMapping("/alarmAreas")
     public ServerResponse alarmAreas(@RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -68,13 +66,11 @@ public class AlarmController {
     }
 
     /**
-     * 显示允许报警的船舶列表或不允许报警的船舶列表
-     *
      * @param page
      * @param size
      * @param isAllowAlarm 是否允许报警，1为是，0为否
      * @param areaId       警戒区域id
-     * @return
+     * @return 显示允许报警的船舶列表或不允许报警的船舶列表
      */
     @GetMapping("/alarmAreas/list")
     public ServerResponse list(@RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -165,7 +161,12 @@ public class AlarmController {
                                                   @RequestParam(value = "size", defaultValue = "10") Integer size) {
         PageRequest request = PageRequest.of(page - 1, 10);
         Page<AlarmToUser> alarmToUserPage = alarmToUserService.findAllByUserId(id, request);
-        List<AlarmRecord> alarmRecordList = alarmToUserPage.getContent().stream().map(e -> alarmRecordService.findById(e.getAlarmRecordId())).collect(Collectors.toList());
-        return ServerResponse.success(alarmRecordList);
+//        List<AlarmRecord> alarmRecordList = alarmToUserPage.getContent().stream().
+//                map(e -> alarmRecordService.findById(e.getAlarmRecordId())).collect(Collectors.toList());
+
+        List<Integer> alarmRecordIdList = alarmToUserPage.getContent().stream().map(AlarmToUser::getAlarmRecordId)
+                .collect(Collectors.toList());
+        List<AlarmRecord> alarmRecordList2 = alarmRecordService.findByAlarmRecordIdIn(alarmRecordIdList);
+        return ServerResponse.success(alarmRecordList2);
     }
 }

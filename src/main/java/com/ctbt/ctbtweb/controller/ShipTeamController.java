@@ -129,6 +129,12 @@ public class ShipTeamController {
                 shipTeamMember.getShipTeamMemberId().getTeamId(), shipTeamMember.getWorkStatus())
         ).collect(Collectors.toList());
 */
+
+        List<Integer> shipIdList = shipTeamPage.getContent().stream()
+                .map(ShipTeamMember::getShipTeamMemberId)
+                .map(ShipTeamMemberId::getShipId)
+                .collect(Collectors.toList());
+        List<Ships> shipsList2 = shipsService.findByIdIn(shipIdList);
         return ServerResponse.success(shipsList);
     }
 
